@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\RG\\Github\\AspNet\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj": {}
+    "C:\\RG\\Github\\Asp.Net\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj": {}
   },
   "projects": {
-    "C:\\RG\\Github\\AspNet\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj": {
+    "C:\\RG\\Github\\Asp.Net\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\RG\\Github\\AspNet\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj",
+        "projectUniqueName": "C:\\RG\\Github\\Asp.Net\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj",
         "projectName": "JwtAuthentication",
-        "projectPath": "C:\\RG\\Github\\AspNet\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj",
+        "projectPath": "C:\\RG\\Github\\Asp.Net\\JwtAuthentication\\JwtAuthentication\\JwtAuthentication.csproj",
         "packagesPath": "C:\\Users\\GouthamRangarajan\\.nuget\\packages\\",
-        "outputPath": "C:\\RG\\Github\\AspNet\\JwtAuthentication\\JwtAuthentication\\obj\\",
+        "outputPath": "C:\\RG\\Github\\Asp.Net\\JwtAuthentication\\JwtAuthentication\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
