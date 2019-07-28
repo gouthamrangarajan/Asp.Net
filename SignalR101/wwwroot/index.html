@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+    <head>
+        <title>SignalR101</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" rel="stylesheet"/>               
+        <link href="./css/App.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div id="app">
+            <nav-bar></nav-bar>
+            <transition name="scale" appear>
+                <div class="container"  v-if="!isRegistered">    
+                    <div class="columns is-centered">
+                        <div class="column is-8 margin-top-50">
+                            <register @submit="register"></register>
+                        </div>                        
+                    </div>    
+                </div>
+            </transition>           
+            <transition-group name="fade" tag="div" v-if="isRegistered"
+                    class="columns is-gapless is-centered padding-1 is-multiline">
+                <div class="column is-8" key="1" v-if="conversationStarted">
+                    <div class="columns">
+                        <div class="column is-4">
+                            <open-chat :convs="conversations" :cur="curChat" @clicked="chngConv"></open-chat>
+                        </div>
+                        <div class="column is-8">
+                            <transition-group name="fade" tag="div" class="is-height-30">
+                                <chat-msg v-for="(data,ind) in chatMsgs" :msg="data.message"
+                                    :user="data.user" :is-cur-user="checkCurUser(data.user)"
+                                    :key="ind" :date="data.date">
+                                </chat-msg>
+                            </transition-group>
+                            <add-message @send="sendMessage"></add-message>
+                        </div>
+                    </div>
+                </div>
+                <div :class="{'column is-height-30':true,'is-4':conversationStarted,'is-8':!conversationStarted}" key="2">
+                    <transition-group name="fade">                            
+                        <logged-in-msg v-for="(data,ind) in loggedInMsgs" :user="data.user"
+                            :key="ind" :date="data.date" :is-cur-user="checkCurUser(data.user)"
+                            @clicked="startConversation">
+                        </logged-in-msg>
+                    </transition-group>
+                </div>
+            </transition-group>                            
+        </div>            
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="./components/NavBar.js" async></script>
+        <script src="./components/Register.js"></script>
+        <script src="./components/LoggedInMessage.js"></script>
+        <script src="./components/ChatMessage.js"></script>
+        <script src="./components/AddMessage.js"></script>
+        <script src="./components/OpenChat.js"></script>
+        <script src="./scripts/App.js" async></script>
+    </body>    
+</html>
+

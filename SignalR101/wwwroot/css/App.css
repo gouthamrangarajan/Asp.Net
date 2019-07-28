@@ -1,0 +1,47 @@
+.scale-enter-active{
+    transition:all 0.3s;
+}
+.scale-enter,.scale-leave-to{
+    transform: scale(0);
+}
+
+.fade-move{
+    transition:all 0.3s;
+}
+.fade-enter-active,.fade-leave-active{
+    transition:all 0.5s;
+}
+
+.fade-enter,.fade-leave-to{
+    opacity: 0;
+}
+
+.margin-top-50{
+    margin-top:12rem;
+}
+.padding-1{
+    padding:1rem;
+}
+.slide-enter-active,.slide-leave-active{
+    transition:all 0.3s;
+}
+.slide-enter,.slide-leave-to{
+    transform:translateX(50rem);
+}
+
+.is-height-30{
+    height: 35rem;
+    overflow-y: auto;
+}
+
+.tag{
+    border-radius: 25px !important;
+}
+
+.is-pointer{
+    cursor: pointer;
+}
+
+textarea[readonly]{
+    border:none;
+}

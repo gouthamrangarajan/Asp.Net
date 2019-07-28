@@ -1,0 +1,15 @@
+C:\RG\Github\Asp.Net\SignalR101\bin\Debug\netcoreapp3.0\SignalR101.exe
+C:\RG\Github\Asp.Net\SignalR101\bin\Debug\netcoreapp3.0\SignalR101.deps.json
+C:\RG\Github\Asp.Net\SignalR101\bin\Debug\netcoreapp3.0\SignalR101.runtimeconfig.json
+C:\RG\Github\Asp.Net\SignalR101\bin\Debug\netcoreapp3.0\SignalR101.runtimeconfig.dev.json
+C:\RG\Github\Asp.Net\SignalR101\bin\Debug\netcoreapp3.0\SignalR101.dll
+C:\RG\Github\Asp.Net\SignalR101\bin\Debug\netcoreapp3.0\SignalR101.pdb
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.csprojAssemblyReference.cache
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.csproj.CoreCompileInputs.cache
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.RazorAssemblyInfo.cache
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.RazorAssemblyInfo.cs
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.AssemblyInfoInputs.cache
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.AssemblyInfo.cs
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.RazorTargetAssemblyInfo.cache
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.dll
+C:\RG\Github\Asp.Net\SignalR101\obj\Debug\netcoreapp3.0\SignalR101.pdb
