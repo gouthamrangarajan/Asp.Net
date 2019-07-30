@@ -5,7 +5,10 @@ var openChat={
          <li v-for="conv in convs" v-bind:key="conv.id">
            <a @click.stop="clicked(conv.id)" v-bind:class="{'is-active':cur==conv.id}">
                 <span v-for="(usr,ind) in conv.users" v-bind:key="ind">
-                    {{usr.firstName}} {{usr.lastName}}
+                    <template v-if="ind>0">
+                        <br/>
+                    </template>
+                    {{usr.firstName}} {{usr.lastName}}                    
                 </span>
            </a>
          </li>
