@@ -29,10 +29,10 @@ namespace AspNetCoreVuejs
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //to test deployed version comment below
-            //comment the if alone
+            //to test deployment version comment the if alone
             if (!env.IsDevelopment())
             {
+                //used for deployed version
                 app.UseSpaStaticFiles();
             }                      
 

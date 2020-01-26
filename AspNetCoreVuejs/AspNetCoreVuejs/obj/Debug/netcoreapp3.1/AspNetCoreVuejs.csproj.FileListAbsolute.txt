@@ -40,3 +40,4 @@ C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\Mic
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\obj\Debug\netcoreapp3.1\AspNetCoreVuejs.MvcApplicationPartsAssemblyInfo.cs
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\obj\Debug\netcoreapp3.1\AspNetCoreVuejs.MvcApplicationPartsAssemblyInfo.cache
+C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\libman.json
