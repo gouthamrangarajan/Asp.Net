@@ -8,7 +8,6 @@ C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\Asp
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\AspNetCoreVuejs.dll
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\AspNetCoreVuejs.pdb
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\AspNetCoreVuejs.Views.dll
-C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\bin\Debug\netcoreapp3.1\AspNetCoreVuejs.Views.pdb
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\obj\Debug\netcoreapp3.1\AspNetCoreVuejs.csprojAssemblyReference.cache
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\obj\Debug\netcoreapp3.1\staticwebassets\AspNetCoreVuejs.StaticWebAssets.Manifest.cache
 C:\RG\Github\Asp.Net\AspNetCoreVuejs\AspNetCoreVuejs\obj\Debug\netcoreapp3.1\staticwebassets\AspNetCoreVuejs.StaticWebAssets.xml
