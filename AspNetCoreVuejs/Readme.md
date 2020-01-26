@@ -1,5 +1,5 @@
-Ability to run Vue js spa app in .net run time (iis or azure).\n
-install node.js.\n
+Ability to run Vue js spa app in .net run time (iis or azure).
+install node.js.
 Run npm install --save from clientapp directory in cmd.
 Run npm run serve from clientapp directory in cmd.
 Run the Visual Studio project it will link to Running vue app.
