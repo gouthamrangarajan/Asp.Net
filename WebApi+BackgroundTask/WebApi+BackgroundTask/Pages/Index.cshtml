@@ -1,0 +1,90 @@
+﻿@page
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WebApiPlusWorker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css"  rel="stylesheet"/>
+    <style>
+        [v-cloak]{
+            display:none;
+        }
+        .records-move{
+            transition:all 0.3s;
+        }
+        .records-enter-active,
+        .records-leave-active{
+            transition:all 0.3s;
+        }
+        .records-enter,
+        .records-leave-to{
+            opacity:0;
+            transform:translateX(2rem);
+        }
+        section{
+            height:35rem;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div id="app" class="h-screen bg-gray-100 font-sans" v-cloak>
+        <nav class="flex flex-row m-auto items-center justify-center py-6 px-8">
+            <span class="text-2xl text-teal-700 font-semibold">{{header}}</span>
+        </nav>
+        <section class="flex flex-row space-x-2  py-10 px-12 justify-start items-start">
+            <transition-group name="records" tag="div" class="flex flex-col space-y-2">
+                <a v-for="(num,ind) in numbers.slice(0,10)" :key="ind" class="text-md text-center text-white shadow py-2 px-4
+                       bg-blue-700 hover:bg-blue-500 rounded-full cursor-pointer">
+                    {{num}}
+                </a>
+            </transition-group>
+            <div v-for="sq in 9">
+                <transition-group name="records" tag="div" class="flex flex-col space-y-2">
+                    <a v-for="(num,ind) in numbers.slice(10*sq,(10*sq)+10)" :key="ind" class="text-md text-center text-white shadow py-2 px-4 
+                       bg-blue-700 hover:bg-blue-500 rounded-full cursor-pointer">
+                        {{num}}
+                    </a>
+                </transition-group>
+            </div>
+        </section>
+        <div class="flex flex-row m-auto items-center justify-start py-6 px-8">
+            <span class="text-base text-orange-700 py-2 px-2 border-l-8 rounded border-pink-500"> Numbers get refreshed via worker service & api call every second </span>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        const app = new Vue({
+            el: '#app',
+            data: {
+                header: 'WebApiPlusWorker',
+                numbers: [],
+                intr: {}
+            },
+            created() {
+                this.intr = setInterval(() => {                    
+                    fetch('/values').then(response => response.json()).then(data => {                        
+                        this.numbers.splice(0);                        
+                        data.forEach(dt => this.numbers.push(dt));
+                    }).catch(err => {
+                        console.log(err)
+                    });
+                }, 1000);
+            },
+            destroyed() {
+                clearInterval(this.intr)
+            },
+            methods: {
+
+            },
+            
+        })
+    </script>
+</body>
+</html>

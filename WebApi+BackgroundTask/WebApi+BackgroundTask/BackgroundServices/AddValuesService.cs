@@ -25,15 +25,14 @@ namespace WebApi_BackgroundTask
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
-               TimeSpan.FromSeconds(5));
+               TimeSpan.FromSeconds(1));
             return Task.CompletedTask;
         }
 
         private void DoWork(object state)
         {
-            var count = Interlocked.Increment(ref executionCount);
-
-            _values.AddData(rand.Next(1000000));
+            var count = Interlocked.Increment(ref executionCount);            
+            _values.AddData(rand.Next(100));
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

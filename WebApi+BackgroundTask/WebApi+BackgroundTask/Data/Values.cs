@@ -12,6 +12,8 @@ namespace WebApi_BackgroundTask
         }
         public void AddData(int value)
         {
+            if (_data.Count >= 200)
+                _data.Clear();
             _data.Add(value);
         }
     }

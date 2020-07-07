@@ -22,7 +22,8 @@ namespace WebApi_BackgroundTask
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).ConfigureServices(services =>
+                })
+            .ConfigureServices(services =>
                 {
                     services.AddHostedService<AddValuesService>();
                 });
