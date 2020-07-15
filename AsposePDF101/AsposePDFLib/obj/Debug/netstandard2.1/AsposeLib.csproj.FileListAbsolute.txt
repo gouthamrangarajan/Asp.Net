@@ -1,0 +1,9 @@
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\bin\Debug\netstandard2.1\AsposeLib.deps.json
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\bin\Debug\netstandard2.1\AsposeLib.dll
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\bin\Debug\netstandard2.1\AsposeLib.pdb
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\AsposeLib.AssemblyInfoInputs.cache
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\AsposeLib.AssemblyInfo.cs
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\AsposeLib.dll
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\AsposeLib.pdb
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\AsposeLib.csprojAssemblyReference.cache
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\AsposeLib.csproj.CoreCompileInputs.cache

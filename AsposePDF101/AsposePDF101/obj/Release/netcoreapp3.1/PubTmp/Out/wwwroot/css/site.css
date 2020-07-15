@@ -1,0 +1,47 @@
+﻿
+#app{
+    min-height:100vh;
+}
+textarea::-webkit-scrollbar{
+    width:0.5rem;
+}
+
+
+textarea::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: #68d391;
+    outline: 1px solid #68d391;
+    border-radius: 4px;
+    cursor:pointer !important;
+}
+
+[v-cloak]{
+    display:none;
+}
+
+.banner {
+    /*    background: linear-gradient( #2b6cb0,#ebf8ff);*/
+    background: linear-gradient(#805ad5,#faf5ff)
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active,
+.slide-up-opp-enter-active,
+.slide-up-opp-leave-active {
+    transition: all 0.3s;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+    opacity: 0;
+    transform: translateY(45rem);
+}
+
+.slide-up-opp-enter,
+.slide-up-opp-leave-to {
+    opacity: 0;
+    transform: translateY(-15rem);
+}
