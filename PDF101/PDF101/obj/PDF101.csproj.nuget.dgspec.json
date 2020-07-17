@@ -101,6 +101,10 @@
               "target": "Package",
               "version": "[20.7.0, )"
             },
+            "DinkToPdf": {
+              "target": "Package",
+              "version": "[1.0.8, )"
+            },
             "Select.HtmlToPdf.NetCore": {
               "target": "Package",
               "version": "[20.1.0, )"

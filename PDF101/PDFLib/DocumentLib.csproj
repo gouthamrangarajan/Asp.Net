@@ -3,11 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>DocumentLib</AssemblyName>
-    <RootNamespace>DocumentLib</RootNamespace>
+    <RootNamespace>DocumentLib</RootNamespace>    
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspose.PDF" Version="20.7.0" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.1.0" />
   </ItemGroup>
 

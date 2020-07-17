@@ -1,4 +1,6 @@
 ﻿using Aspose.Pdf;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using SelectPdf;
 using System;
 using System.Data.Common;
@@ -16,7 +18,8 @@ namespace DocumentLib
     public enum Library
     {
         Aspose,
-        SelectPdf
+        SelectPdf,
+        WkHtmlDinkToPdf
     }
     public enum DocumentType
     {
@@ -54,15 +57,20 @@ namespace DocumentLib
 
         public Task<Stream> CreateDocument(string htmlString, Library lib)
         {
-            switch(lib){
+            switch (lib)
+            {
                 case Library.SelectPdf:
                     {
                         return CreateDocumentSelectPDF(htmlString);
                     }
                 case Library.Aspose:
-                {
-                    return CreateDocumentAspose(htmlString);
-                }
+                    {
+                        return CreateDocumentAspose(htmlString);
+                    }
+                case Library.WkHtmlDinkToPdf:
+                    {
+                        return CreatedDocumentDinkToPDF(htmlString);
+                    }
                 default:
                     {
                         throw new Exception("Invalid Library");
@@ -70,7 +78,30 @@ namespace DocumentLib
             }
         }
 
+        public Task<Stream> CreatedDocumentDinkToPDF(string htmlString)
+        {
+            return Task.Factory.StartNew<Stream>(() =>
+            {
+                var doc = new HtmlToPdfDocument()
+                {
+                    GlobalSettings = {
+                    PaperSize = PaperKind.A4,
+                    Orientation = Orientation.Portrait
+                },
+                    Objects = {
+                    new ObjectSettings()
+                    {
+                        HtmlContent = htmlString
+                    }
+                }
+                };
 
+                IConverter converter = new SynchronizedConverter(new PdfTools());
+                var ms = new MemoryStream(converter.Convert(doc));
+                return ms;
+            });
+        }
+       
         public Task<Stream> CreateDocumentAspose(string htmlString)
         {
             return Task.Factory.StartNew<Stream>(() =>

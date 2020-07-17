@@ -25,8 +25,6 @@ C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\DocumentLib.pdb
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.csprojAssemblyReference.cache
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.AssemblyInfoInputs.cache
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.AssemblyInfo.cs
-C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.csproj.CoreCompileInputs.cache
-C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.MvcApplicationPartsAssemblyInfo.cache
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.RazorAssemblyInfo.cache
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.RazorAssemblyInfo.cs
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.TagHelpers.input.cache
@@ -47,3 +45,12 @@ C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\staticwebassets\PDF10
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.dll
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.pdb
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.genruntimeconfig.cache
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\DinkToPdf.dll
+C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.csproj.CoreCompileInputs.cache
+C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.MvcApplicationPartsAssemblyInfo.cache
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dylib
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\wkhtmltox\v0.12.4\32 bit\libwkhtmltox.so
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\wkhtmltox\v0.12.4\64 bit\libwkhtmltox.dll
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\wkhtmltox\v0.12.4\64 bit\libwkhtmltox.dylib
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\wkhtmltox\v0.12.4\64 bit\libwkhtmltox.so
