@@ -1,0 +1,9 @@
+C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.0\DocumentLib.AssemblyInfoInputs.cache
+C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.0\DocumentLib.AssemblyInfo.cs
+C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.0\DocumentLib.csproj.CoreCompileInputs.cache
+C:\RG\github\asp.net\PDF101\PDFLib\bin\Debug\netstandard2.0\Select.Html.dep
+C:\RG\github\asp.net\PDF101\PDFLib\bin\Debug\netstandard2.0\DocumentLib.deps.json
+C:\RG\github\asp.net\PDF101\PDFLib\bin\Debug\netstandard2.0\DocumentLib.dll
+C:\RG\github\asp.net\PDF101\PDFLib\bin\Debug\netstandard2.0\DocumentLib.pdb
+C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.0\DocumentLib.dll
+C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.0\DocumentLib.pdb

@@ -25,7 +25,7 @@ namespace DocumentLib
     }
     public interface IDocumentService
     {        
-        public Task<Stream> CreateDocument(string htmlString, Library lib);
+         Task<Stream> CreateDocument(string htmlString, Library lib);
     }
     public class DocumentServiceFactory
     {

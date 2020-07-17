@@ -26,7 +26,9 @@ textarea::-webkit-scrollbar-thumb {
     /*    background: linear-gradient( #2b6cb0,#ebf8ff);*/
     background: linear-gradient(#805ad5,#faf5ff)
 }
-
+.banner__link {
+    transition: all 0.3s;
+}
 .slide-up-enter-active,
 .slide-up-leave-active,
 .slide-up-opp-enter-active,
@@ -45,3 +47,4 @@ textarea::-webkit-scrollbar-thumb {
     opacity: 0;
     transform: translateY(-15rem);
 }
+
