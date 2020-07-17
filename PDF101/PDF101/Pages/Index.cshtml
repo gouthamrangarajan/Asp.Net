@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Template";
+}
+<div id="app" class="flex flex-col h-full bg-gray-100" v-cloak>
+    <nav class="w-full bg-transparent sticky top-0 h-12 leading-12">
+        <div class="banner flex flex-row justify-center  w-full  py-8 px-16 h-64 space-x-12">
+            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='Aspose'}" v-on:click="library='Aspose'">Aspose PDF</a>
+            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='SelectPdf'}" v-on:click="library='SelectPdf'">Select PDF</a>
+            @*<a class="text-white cursor-pointer text-lg p-2 hover:text-gray-300 ">CKEditor</a>*@
+        </div>
+    </nav>
+    <form method="post" class="bg-transparent flex flex-col justify-center items-center w-4/5 m-auto py-4 z-10" v-on:submit="submit">
+        <input type="hidden" asp-for="Library" v-model="library"/>
+        <textarea asp-for="Html" rows="20" class="appearance-none outline-none bg-transparent border border-gray-300  rounded px-4 py-2 w-full"
+                    id="textarea">
+    
+            </textarea>
+        <button type="submit" class="px-4 py-2 appearance-none outline-none bg-teal-600 hover:bg-teal-700 text-white w-full">
+            Create PDF
+        </button>
+    </form>    
+    <transition v-bind:name="notification.transition">
+        <div v-show="notification.display" class="fixed px-4 py-2 rounded z-10 cursor-pointer shadow-lg font-semibold bg-gray-800 text-blue-300 top-0 mt-8 right-0 mr-5 z-20">
+            Processing....
+        </div>
+    </transition>
+</div>
+@section Scripts{
+    
+    <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
+    
+    <script type="text/javascript">
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                notification: { display: false, transition: 'slide-up' },
+                library:'Aspose'
+            },
+            mounted() {
+                CKEDITOR.replace('Html', {
+                    width: '100%',
+                    height:450
+                });
+            },
+            methods: {
+                submit() {                    
+                    this.notification.transition = 'slide-up';
+                    this.$nextTick(() => { this.notification.display = true; });
+                    setTimeout(() => {
+                        this.notification.transition = 'slide-up-opp';
+                        this.$nextTick(() => { this.notification.display = false; });
+                    },7000)
+                }
+            }
+        })
+    </script>
+
+}
