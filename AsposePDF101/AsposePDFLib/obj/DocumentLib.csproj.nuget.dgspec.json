@@ -41,6 +41,10 @@
             "Aspose.PDF": {
               "target": "Package",
               "version": "[20.7.0, )"
+            },
+            "Select.HtmlToPdf.NetCore": {
+              "target": "Package",
+              "version": "[20.1.0, )"
             }
           },
           "imports": [

@@ -3,7 +3,7 @@ C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\bin\Debug\netstandard2.1\Document
 C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.AssemblyInfoInputs.cache
 C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.AssemblyInfo.cs
 C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\bin\Debug\netstandard2.1\DocumentLib.pdb
-C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.csproj.CoreCompileInputs.cache
 C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.dll
 C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.pdb
-C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.csprojAssemblyReference.cache
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\bin\Debug\netstandard2.1\Select.Html.dep
+C:\RG\github\asp.net\AsposePDF101\AsposePDFLib\obj\Debug\netstandard2.1\DocumentLib.csproj.CoreCompileInputs.cache

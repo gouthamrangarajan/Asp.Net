@@ -45,3 +45,5 @@ C:\RG\github\asp.net\AsposePDF101\AsposePDF101\obj\Debug\netcoreapp3.1\AsposePDF
 C:\RG\github\asp.net\AsposePDF101\AsposePDF101\obj\Debug\netcoreapp3.1\AsposePDF101.genruntimeconfig.cache
 C:\RG\github\asp.net\AsposePDF101\AsposePDF101\bin\Debug\netcoreapp3.1\DocumentLib.dll
 C:\RG\github\asp.net\AsposePDF101\AsposePDF101\bin\Debug\netcoreapp3.1\DocumentLib.pdb
+C:\RG\github\asp.net\AsposePDF101\AsposePDF101\bin\Debug\netcoreapp3.1\Select.Html.dep
+C:\RG\github\asp.net\AsposePDF101\AsposePDF101\bin\Debug\netcoreapp3.1\Select.HtmlToPdf.dll

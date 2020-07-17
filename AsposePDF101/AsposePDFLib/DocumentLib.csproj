@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspose.PDF" Version="20.7.0" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.1.0" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
 ﻿using Aspose.Pdf;
+using SelectPdf;
 using System;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace DocumentLib
     }
     public interface IDocumentService
     {
+        //public Task<byte[]> CreatedDocument(string htmlString);
         public Task<Stream> CreatedDocument(string htmlString);
     }
     public class DocumentServiceFactory
@@ -47,29 +50,40 @@ namespace DocumentLib
 
         public Task<Stream> CreatedDocument(string htmlString)
         {
-            return Task.Factory.StartNew<Stream>(()=>
+            return Task.Factory.StartNew<Stream>(() =>
             {
                 var ms = new MemoryStream();
-                // Initialize document object
+                //Aspose
                 Document document = new Document();
-                
-                htmlString.Split("</html>").ToList().ForEach(str =>
-                {
-                    var pgStr = str.Replace("<html>", "").Replace("\r","").Replace("\n","").Trim();
-                    if (!string.IsNullOrWhiteSpace(pgStr))
-                    {
-                        // Add page
-                        Page page = document.Pages.Add();
 
-                        HtmlFragment htmlFragment = new HtmlFragment(pgStr);
-                        page.Paragraphs.Add(htmlFragment);
-                    }
-                });
-                
-                // Save updated PDF
+                // Add page
+                Page page = document.Pages.Add();
+                HtmlFragment htmlFragment = new HtmlFragment(htmlString);
+                page.Paragraphs.Add(htmlFragment);
+
                 document.Save(ms);
                 return ms;
             });
         }
+
+        //public Task<byte[]> CreatedDocument(string htmlString)
+        //{
+           
+        //    return Task.Factory.StartNew<byte[]>(()=>
+        //    {           
+
+        //        //Selectpdf
+        //        HtmlToPdf converter = new HtmlToPdf();
+        //        converter.Options.PdfPageSize = PdfPageSize.A4;
+        //        converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+               
+        //        var doc = converter.ConvertHtmlString($"{htmlString}");
+        //        var bt=doc.Save();
+        //        doc.Close();
+        //        return bt;
+        //    });
+        //}
+
+        
     }
 }

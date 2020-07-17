@@ -94,10 +94,8 @@ Paragraph three</span></span></p>
         {
             if (string.IsNullOrWhiteSpace(Html)) Html = "<h1 style='color:red'>No data passed...</h1>";
             var service=_docServiceFactory.GetServiceInstance(DocumentType.PDF);
-            var res=await service.CreatedDocument(Html);
-            byte[] dt = new byte[res.Length];
-            var res1 = await res.ReadAsync(dt);
-            return File(dt, "application/pdf", "test.pdf");
+            var res=await service.CreatedDocument(Html);            
+            return File(res, "application/pdf", "test.pdf");
         }
     }
 }
