@@ -17,4 +17,3 @@ C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.1\DocumentLib.Assembly
 C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.1\DocumentLib.dll
 C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.1\DocumentLib.pdb
 C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.1\DocumentLib.csproj.CoreCompileInputs.cache
-C:\RG\github\asp.net\PDF101\PDFLib\obj\Debug\netstandard2.1\DocumentLib.csprojAssemblyReference.cache

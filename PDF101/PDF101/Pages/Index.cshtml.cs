@@ -6,6 +6,7 @@ using DocumentLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Wkhtmltopdf.NetCore;
 
 namespace AsposePDF101.Pages
 {
@@ -20,8 +21,10 @@ namespace AsposePDF101.Pages
         private readonly ILogger<IndexModel> _logger;
         private DocumentServiceFactory _docServiceFactory;
 
-        public IndexModel(ILogger<IndexModel> logger, DocumentServiceFactory asposeServiceFactory)
+        private IGeneratePdf _generatePdf;
+        public IndexModel(ILogger<IndexModel> logger, DocumentServiceFactory asposeServiceFactory,IGeneratePdf generatePdf)
         {
+            _generatePdf = generatePdf;
             _logger = logger;
             _docServiceFactory = asposeServiceFactory;
             Html = @"<h1 style=""text-align:center"">&nbsp;</h1>
@@ -90,15 +93,23 @@ Paragraph three</span></span></p>
 
         public void OnGet()
         {
+         
             
+
         }
 
         public async Task<ActionResult> OnPost()
         {
             if (string.IsNullOrWhiteSpace(Html)) Html = "<h1 style='color:red'>No data passed...</h1>";
             var service=_docServiceFactory.GetServiceInstance(DocumentType.PDF);
-            var res=await service.CreateDocument(Html,(DocumentLib.Library)Enum.Parse(typeof(DocumentLib.Library),Library));            
-            return File(res, "application/pdf", "test.pdf");
+            if (Enum.TryParse(typeof(DocumentLib.Library), Library, out object parsed)) {
+                var res = await service.CreateDocument(Html,(DocumentLib.Library)parsed);
+                return File(res, "application/pdf", "test.pdf");
+            }
+            else
+            {
+                return File(_generatePdf.GetPDF(Html), "application/pdf", "test.pdf");
+            }
         }
     }
 }

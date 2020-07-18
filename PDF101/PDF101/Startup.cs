@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wkhtmltopdf.NetCore;
 
 namespace PDF101
 {
@@ -23,6 +24,8 @@ namespace PDF101
             Configuration = configuration;
             _hostingEnvironment = env;
 
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -33,6 +36,8 @@ namespace PDF101
         {
             services.AddRazorPages();
             services.AddScoped<DocumentServiceFactory>();
+            services.AddWkhtmltopdf();
+
             var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
             var wkHtmlToPdfPath = Path.Combine(_hostingEnvironment.ContentRootPath, $"wkhtmltox\\v0.12.4\\{architectureFolder}\\libwkhtmltox");
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();

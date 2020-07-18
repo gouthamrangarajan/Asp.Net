@@ -7,6 +7,7 @@
     <nav class="w-full bg-transparent sticky top-0 h-12 leading-12">
         <div class="banner flex flex-row justify-center  w-full  py-8 px-16 h-64 space-x-12">
             <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='Aspose'}" v-on:click="library='Aspose'">Aspose PDF</a>
+            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='WkHtml'}" v-on:click="library='WkHtml'">WkHtml</a>
             <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='WkHtmlDinkToPdf'}" v-on:click="library='WkHtmlDinkToPdf'">WkHtml+DinkPDF</a>
             <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='SelectPdf'}" v-on:click="library='SelectPdf'">Select PDF</a>
             @*<a class="text-white cursor-pointer text-lg p-2 hover:text-gray-300 ">CKEditor</a>*@
