@@ -38,10 +38,10 @@ namespace PDF101
             services.AddScoped<DocumentServiceFactory>();
             services.AddWkhtmltopdf();
 
-            var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
-            var wkHtmlToPdfPath = Path.Combine(_hostingEnvironment.ContentRootPath, $"wkhtmltox\\v0.12.4\\{architectureFolder}\\libwkhtmltox");
-            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
-            context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
+            //var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
+            //var wkHtmlToPdfPath = Path.Combine(_hostingEnvironment.ContentRootPath, $"wkhtmltox\\v0.12.4\\{architectureFolder}\\libwkhtmltox");
+            //CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+            //context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

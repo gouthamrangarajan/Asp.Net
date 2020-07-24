@@ -6,11 +6,12 @@
 <div id="app" class="flex flex-col h-full bg-gray-100" v-cloak>
     <nav class="w-full bg-transparent sticky top-0 h-12 leading-12">
         <div class="banner flex flex-row justify-center  w-full  py-8 px-16 h-64 space-x-12">
-            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='Aspose'}" v-on:click="library='Aspose'">Aspose PDF</a>
-            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='WkHtml'}" v-on:click="library='WkHtml'">WkHtml</a>
-            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='WkHtmlDinkToPdf'}" v-on:click="library='WkHtmlDinkToPdf'">WkHtml+DinkPDF</a>
-            <a v-bind:class="{'banner__link text-white cursor-pointer text-xl p-2 hover:text-gray-300':true,'border-t-2 border-purple-900':library=='SelectPdf'}" v-on:click="library='SelectPdf'">Select PDF</a>
-            @*<a class="text-white cursor-pointer text-lg p-2 hover:text-gray-300 ">CKEditor</a>*@
+            <a :key="-1" class="banner__marker absolute" v-bind:style="markerStyle"></a>
+            <transition-group name="records">
+                <a v-for="lib in allLibrary" v-bind:key="lib.value"
+                   v-bind:class="{'banner__link text-white  text-xl p-2 hover:text-gray-300 border-t-2 border-purple-900':true,'cursor-not-allowed':lib.disabled,'cursor-pointer':!lib.disabled}"
+                   v-on:click="selLibrary(lib.value)" :disabled="lib.disabled"> {{lib.name}}</a>
+            </transition-group>
         </div>
     </nav>
     <form method="post" class="bg-transparent flex flex-col justify-center items-center w-4/5 m-auto py-4 z-10" v-on:submit="submit">
@@ -39,7 +40,22 @@
             el: '#app',
             data: {
                 notification: { display: false, transition: 'slide-up' },
-                library:'Aspose'
+                library: 'ItextSharpLGPLv2',
+                allLibrary: [
+                    { name: 'Aspose', value: 'Aspose',markerLeft:36 ,disabled:false},
+                    { name: 'WkHtml', value: 'WkHtml',markerLeft:41.4,disabled:true },
+                    { name: 'DinktoPdf', value: 'WkHtmlDinkToPdf',markerLeft:47.5,disabled:true },
+                    { name: 'SelectPdf', value: 'SelectPdf',markerLeft:54.3,disabled:false },
+                    { name: 'ITextSharp', value: 'ItextSharpLGPLv2',markerLeft:61.5,disabled:false }
+                ]
+            },
+            computed: {
+                markerStyle() {
+                    var style = {  };
+                    var left = this.allLibrary.filter(el => el.value == this.library)[0].markerLeft;
+                    style.left = left + '%';
+                    return style;
+                }
             },
             mounted() {
                 CKEDITOR.replace('Html', {
@@ -55,6 +71,10 @@
                         this.notification.transition = 'slide-up-opp';
                         this.$nextTick(() => { this.notification.display = false; });
                     },7000)
+                },
+                selLibrary(val) {
+                    if (!this.allLibrary.filter(el => el.value == val)[0].disabled)
+                        this.library = val;
                 }
             }
         })

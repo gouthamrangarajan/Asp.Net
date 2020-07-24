@@ -26,9 +26,21 @@ textarea::-webkit-scrollbar-thumb {
     /*    background: linear-gradient( #2b6cb0,#ebf8ff);*/
     background: linear-gradient(#805ad5,#faf5ff)
 }
-.banner__link {
-    transition: all 0.3s;
+
+.banner__marker{
+    transition:left 0.3s;
 }
+.banner__marker::before {
+    width: 5rem;
+    position: absolute;
+    content: "";
+    border-width: 2px 2px 2px 2px;
+    border-style: solid;
+    border-color: #d6bcfa;
+    margin-top: -10px;
+    border-radius: 2px;
+}
+
 .slide-up-enter-active,
 .slide-up-leave-active,
 .slide-up-opp-enter-active,
@@ -47,4 +59,16 @@ textarea::-webkit-scrollbar-thumb {
     opacity: 0;
     transform: translateY(-15rem);
 }
+
+.records-enter-active,
+.records-leave-active{
+    transition:all 0.3s;
+}
+
+.records-enter,
+.records-leave-to{
+   opacity:0;
+   transform:translateX(2rem);
+}
+
 

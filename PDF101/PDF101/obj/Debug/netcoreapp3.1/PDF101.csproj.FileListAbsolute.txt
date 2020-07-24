@@ -372,3 +372,5 @@ C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.Views.pdb
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.dll
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.pdb
 C:\RG\github\asp.net\PDF101\PDF101\obj\Debug\netcoreapp3.1\PDF101.genruntimeconfig.cache
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\iTextSharp.LGPLv2.Core.dll
+C:\RG\github\asp.net\PDF101\PDF101\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll

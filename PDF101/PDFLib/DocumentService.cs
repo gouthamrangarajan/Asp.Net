@@ -7,6 +7,11 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using iTextSharp;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Collections.Generic;
 
 //TODO
 /// <summary>
@@ -19,7 +24,8 @@ namespace DocumentLib
     {
         Aspose,
         SelectPdf,
-        WkHtmlDinkToPdf
+        WkHtmlDinkToPdf,
+        ItextSharpLGPLv2
     }
     public enum DocumentType
     {
@@ -71,11 +77,50 @@ namespace DocumentLib
                     {
                         return CreatedDocumentDinkToPDF(htmlString);
                     }
+                case Library.ItextSharpLGPLv2:
+                {
+                    return CreatedDocumentItextSharp(htmlString);
+                }
                 default:
                     {
                         throw new Exception("Invalid Library");
                     }
             }
+        }
+
+        private Task<Stream> CreatedDocumentItextSharp(string htmlString)
+        {
+            return Task.Factory.StartNew<Stream>(() =>
+            {
+                var ms = new MemoryStream();
+                iTextSharp.text.Document document = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4);
+
+                PdfWriter pdfWriter = PdfWriter.GetInstance(document, ms);
+                //create pdf file header
+                document.Open();                
+             
+                HtmlWorker worker = new HtmlWorker(document);
+                worker.Open();
+                worker.StartDocument();
+                htmlString.Split("<div style=\"page-break-after:always\"><span style=\"display:none\">&nbsp;</span></div>").ToList().ForEach(page =>
+                {
+                    document.NewPage();
+                    worker.NewPage();
+                    var reader = new StringReader(page);
+                    worker.Parse(reader);
+
+                    foreach (IElement element in HtmlWorker.ParseToList(reader, null))
+                    {
+                        document.Add((IElement)element);
+                    }
+                });
+              
+                worker.EndDocument();
+                worker.Close();                        
+                document.Close();
+                pdfWriter.Close();
+                return new MemoryStream(ms.ToArray());
+            });
         }
 
         public Task<Stream> CreatedDocumentDinkToPDF(string htmlString)
@@ -108,7 +153,7 @@ namespace DocumentLib
             {
                 var ms = new MemoryStream();
                 //Aspose
-                Document document = new Document();
+                Aspose.Pdf.Document document = new Aspose.Pdf.Document();
 
                 // Add page
                 Page page = document.Pages.Add();
