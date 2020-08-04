@@ -104,7 +104,7 @@ namespace DocumentLib
                 worker.StartDocument();
                 htmlString.Split("<div style=\"page-break-after:always\"><span style=\"display:none\">&nbsp;</span></div>").ToList().ForEach(page =>
                 {
-                    page = page.Replace("<p>&nbsp;</p>", "<p><br/></p>");
+                    page = page.Replace("<p>&nbsp;</p>", "<p><br/></p>").Replace("<div>&nbsp;</div>", "<div><br/></div>"); ;
                     document.NewPage();
                     worker.NewPage();
                     var reader = new StringReader(page);

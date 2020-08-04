@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AutosuggestUsingTrie</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" id="description" hid="description" content="Autosuggest implementation in C# using Trie" />
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        .records-move{
+            transition:all 0.3s
+        }
+        .records-enter-active,
+        .records-leave-active{
+            transition:all 0.3s;
+        }
+        .records-enter,
+        .records-leave-to{
+            opacity:0;
+            transform:translateX(2px);
+        }       
+        li{
+            transition:all 0.3s;
+        }
+        ul{
+            margin-top:4.7rem;
+        }
+        ul::before {
+            position: absolute;
+            left:10%;
+            content: "";
+            border-width: 0 10px 10px 10px;
+            border-style: solid;
+            border-color: transparent transparent #4299e1 transparent;
+            margin-left: -8px;
+            margin-top: -14px;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak class="h-screen">
+        <nav class="bg-teal-700 text-white py-2 px-4 text-2xl flex justify-center items-center sticky top-0">
+            Autosuggest Trie
+        </nav>
+        <div class="p-2 flex">
+            <div class="py-2 px-4 flex flex-col w-full mt-24 ml-12">
+                <label class="text-orange-600 text-lg">Search:</label>
+                <div class="inline-flex" @click.stop>
+                    <input type="text" :class="{'appearance-none outline-none w-1/4 py-1 px-3 border-t border-l border-b rounded-l border-blue-500':true}"
+                           v-model.trim="srchTxt" />
+                    <div class="icon border-t border-r border-b rounded-r  border-blue-500 py-1 px-3">
+                        <i class="material-icons">search</i>
+                    </div>
+                </div>
+                <transition name="records">
+                    <ul class="py-1 absolute rounded shadow w-1/4 border border-blue-500" v-show="showSrchResults" @click.stop>
+                        <transition-group name="records">
+                            <li v-for="(res,index) in srchResults" :key="res" :class="{'p-1 px-3 hover:bg-gray-300 rounded cursor-pointer':true,'bg-gray-200':index%2==1}">
+                                <template v-if="res.indexOf('Error')>-1">
+                                    <a class="text-red-600">{{res}}</a>
+                                </template>
+                                <template v-else>
+                                    <a>{{res}}</a>
+                                </template>
+                            </li>
+                            <template v-if="srchResults.length==0">
+                                <li :key="-1">
+                                    <a class="text-red-600">No results...</a>
+                                </li>
+                            </template>
+                        </transition-group>
+                    </ul>
+                </transition>
+                             
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript"></script>
+    <script type="text/javascript">
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Welcome',
+                srchTxt: '',
+                srchResults: [],
+                showSrchResults:false
+            },
+            created() {
+                this.debouncedSearch = _.debounce(this.search, 500);
+                window.addEventListener('click',this.hideSearchResults)
+            },
+            destroyed() {
+                window.removeEventListener('click', this.hideSearchResults)
+            },
+            methods: {
+                hideSearchResults() {
+                    this.showSrchResults = false;
+                },
+                async search() {                                     
+                    try {
+                        let resp = await axios.get('/api/search?query=' + this.srchTxt)
+                        this.srchResults.splice(0);                               
+                        resp.data.slice(0,6).forEach(el => {
+                            this.srchResults.push(el);
+
+                        });
+                        this.$nextTick(() => { this.showSrchResults = true; });
+                    }
+                    catch{
+                        this.srchResults.splice(0);                           
+                        this.srchResults.push('Error fetching the results, please try again later');
+                        this.$nextTick(() => { this.showSrchResults = true; });
+                    }
+                }
+            },
+            watch: {
+                srchTxt(newVal, oldVal) {
+                    if (newVal != '')                       
+                        this.debouncedSearch();                    
+                    else
+                        this.showSrchResults = false;
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
