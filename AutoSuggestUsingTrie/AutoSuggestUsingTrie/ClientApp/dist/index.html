@@ -50,17 +50,17 @@
         <div class="p-2 flex">
             <div class="py-2 px-4 flex flex-col w-full mt-24 ml-12">
                 <label class="text-orange-600 text-lg">Search:</label>
-                <div class="inline-flex" @click.stop>
+                <div class="inline-flex">
                     <input type="text" :class="{'appearance-none outline-none w-1/4 py-1 px-3 border-t border-l border-b rounded-l border-blue-500':true}"
-                           v-model.trim="srchTxt" />
-                    <div class="icon border-t border-r border-b rounded-r  border-blue-500 py-1 px-3">
+                           v-model.trim="srchTxt" @click.stop="textActivated"/>
+                    <div class="icon border-t border-r border-b rounded-r  border-blue-500 py-1 px-3 cursor-pointer" @click.stop="textActivated">
                         <i class="material-icons">search</i>
                     </div>
                 </div>
                 <transition name="records">
                     <ul class="py-1 absolute rounded shadow w-1/4 border border-blue-500" v-show="showSrchResults" @click.stop>
                         <transition-group name="records">
-                            <li v-for="(res,index) in srchResults" :key="res" :class="{'p-1 px-3 hover:bg-gray-300 rounded cursor-pointer':true,'bg-gray-200':index%2==1}">
+                            <li v-for="(res,index) in srchResults" :key="res" :class="{'p-1 px-3 cursor-pointer':true,'bg-gray-300':index%2==1}">
                                 <template v-if="res.indexOf('Error')>-1">
                                     <a class="text-red-600">{{res}}</a>
                                 </template>
@@ -69,7 +69,7 @@
                                 </template>
                             </li>
                             <template v-if="srchResults.length==0">
-                                <li :key="-1">
+                                <li :key="-1" class="p-x px-3">
                                     <a class="text-red-600">No results...</a>
                                 </li>
                             </template>
@@ -100,6 +100,9 @@
                 window.removeEventListener('click', this.hideSearchResults)
             },
             methods: {
+                textActivated() {
+                    this.showSrchResults = true ? this.srchResults.length > 0 : this.showSrchResults=false
+                },
                 hideSearchResults() {
                     this.showSrchResults = false;
                 },

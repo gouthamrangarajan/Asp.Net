@@ -44,6 +44,22 @@ namespace AutoSuggestUsingTrie
 
                 addStringRecursive(s, 0);
             }
+            private void addStringRecursive(string s, int index)
+            {
+                if (index >= s.Length)
+                {
+                    _isCompleted = true;
+                    return;
+                }
+                var node = GetChild(s[index]);
+                if (node == null)
+                {
+                    node = new Node();
+                    _children[s[index]] = node;
+                }
+                node.addStringRecursive(s, index + 1);
+            }
+
             public void FindAll(string value,List<string> collectedWords)
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -74,22 +90,7 @@ namespace AutoSuggestUsingTrie
                     child.Value.collectCompletedWordsRecursion(prefix + child.Key, collectedCountries);                
             }
 
-            private void addStringRecursive(string s,int index)
-            {
-                if (index>=s.Length)
-                {
-                    _isCompleted = true;
-                    return;
-                }
-                var node = GetChild(s[index]);
-                if (node == null)
-                {
-                    node = new Node();
-                    _children[s[index]] = node;
-                }
-                node.addStringRecursive(s, index + 1);
-            }
-
+         
         }
     }
 }
