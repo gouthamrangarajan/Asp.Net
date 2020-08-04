@@ -81,13 +81,13 @@ namespace AutoSuggestUsingTrie
                 node.findAllRecurison(value, index + 1, collectedWords);
             }
 
-            private void collectCompletedWordsRecursion(string prefix, List<string> collectedCountries)
+            private void collectCompletedWordsRecursion(string prefix, List<string> collectedWords)
             {
-                if (_isCompleted)                                    
-                    collectedCountries.Add(textInfo.ToTitleCase(prefix));                
+                if (_isCompleted)
+                    collectedWords.Add(textInfo.ToTitleCase(prefix));                
 
                 foreach(var child in _children)                
-                    child.Value.collectCompletedWordsRecursion(prefix + child.Key, collectedCountries);                
+                    child.Value.collectCompletedWordsRecursion(prefix + child.Key, collectedWords);                
             }
 
          

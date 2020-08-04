@@ -19,6 +19,7 @@ namespace AutoSuggestUsingTrie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(typeof(CountriesTrie));
+            services.AddSingleton(typeof(LoremIpsumTrie));
             services.AddControllers();
             services.AddSpaStaticFiles(config =>
             {
