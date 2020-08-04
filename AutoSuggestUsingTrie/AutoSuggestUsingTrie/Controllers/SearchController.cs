@@ -21,9 +21,9 @@ namespace AutoSuggestUsingTrie.Controllers
         }
 
         [HttpGet("country")]
-        public async Task<List<string>> Get(string query)
+        public async Task<IEnumerable<string>> Get(string query)
         {
-            var dt=await Task.Factory.StartNew<List<string>>(() =>
+            var dt=await Task.Factory.StartNew<IEnumerable<string>>(() =>
             {
                 return _countries.Search(query);
             });
@@ -32,9 +32,9 @@ namespace AutoSuggestUsingTrie.Controllers
         }
 
         [HttpGet("loremipsum")]
-        public async Task<List<string>> GetLoremIpsum(string query)
+        public async Task<IEnumerable<string>> GetLoremIpsum(string query)
         {
-            var dt = await Task.Factory.StartNew<List<string>>(() =>
+            var dt = await Task.Factory.StartNew<IEnumerable<string>>(() =>
             {
                 return _loremIpsumTrie.Search(query);
             });

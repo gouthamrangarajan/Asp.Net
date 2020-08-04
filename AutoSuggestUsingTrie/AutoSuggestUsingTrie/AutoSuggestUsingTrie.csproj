@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\loremipsum.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

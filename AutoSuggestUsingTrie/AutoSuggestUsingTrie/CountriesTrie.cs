@@ -16,7 +16,7 @@ namespace AutoSuggestUsingTrie
             }
         }
 
-        public List<string> Search(string value)
+        public IEnumerable<string> Search(string value)
         {
             var retList = new List<string>();
             _root.FindAll(value,retList);

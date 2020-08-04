@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace AutoSuggestUsingTrie
 {
@@ -18,15 +19,16 @@ namespace AutoSuggestUsingTrie
             }
         }
 
-        public List<string> Search(string value)
+        public IEnumerable<string> Search(string value)
         {
             var retList = new List<string>();
-            _root.FindAll(value,retList);
-            return retList;
+            _root.FindAll(value,retList);                
+            return retList.Distinct();
         }
 
         private class Node
         {
+            private static List<Node> spaceNodes = new List<Node>();
             private Dictionary<char, Node> _children = new Dictionary<char, Node>();            
             private bool _isCompleted;
             private static TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
@@ -59,40 +61,61 @@ namespace AutoSuggestUsingTrie
                     node = new Node();
                     _children[s[index]] = node;
                 }
+                if(s[index]==' ')
+                {
+                    spaceNodes.Add(node);
+                }
                 node.addStringRecursive(s, index + 1);
             }
 
-            public void FindAll(string value,List<string> collectedsentences)
+            public void FindAll(string value,List<string> collectedResults)
             {
                 if (string.IsNullOrWhiteSpace(value))
                     return;
-                findAllRecurison(value, 0, collectedsentences);
+                findAllRecurison(value, 0, collectedResults);
+                findAllInSpacedNodes(value, collectedResults);
             }
 
-            private void findAllRecurison(string value,int index,List<string> collectedsentences)
+            private void findAllRecurison(string value,int index,List<string> collectedResults)
             {
 
                 if (index>=value.Length)
                 {
-                    collectCompletedsentencesRecursion(value, collectedsentences);
+                    collectCompletedResultsRecursion(value, collectedResults);
                     return;
                 }
                 var node = GetChild(value.ToLower()[index]);
                 if (node == null)
                     return;
-                node.findAllRecurison(value, index + 1, collectedsentences);
+                node.findAllRecurison(value, index + 1, collectedResults);
             }
 
-            private void collectCompletedsentencesRecursion(string prefix, List<string> collectedsentences)
+            private void collectCompletedResultsRecursion(string prefix, List<string> collectedResults)
             {
                 if (_isCompleted)
-                    collectedsentences.Add(textInfo.ToTitleCase(prefix));                
+                    collectedResults.Add(textInfo.ToTitleCase(prefix.Trim()));
 
-                foreach(var child in _children)                
-                    child.Value.collectCompletedsentencesRecursion(prefix + child.Key, collectedsentences);                
+                if (_children.Count == 1 && _children.ContainsKey(' '))
+                {
+                    collectedResults.Add(textInfo.ToTitleCase(prefix.Trim()));
+                }
+                else
+                {
+                    foreach (var child in _children)
+                        child.Value.collectCompletedResultsRecursion(prefix + child.Key, collectedResults);
+                }
             }
 
-         
+            private static void findAllInSpacedNodes(string value, List<string> collectedResults)
+            {
+                spaceNodes.ForEach(sn =>
+                {
+                    sn.findAllRecurison(value,0, collectedResults);
+                });
+
+            }
+
+
         }
     }
 }
