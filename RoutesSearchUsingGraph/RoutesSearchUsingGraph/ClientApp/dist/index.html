@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>RouteSearchUsingGraph</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" id="description" hid="description" content="Search implementation in C# using Graph" />
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .records-move {
+            transition: all 0.3s
+        }
+
+        .records-enter-active,
+        .records-leave-active {
+            transition: all 0.3s;
+        }
+
+        .records-enter,
+        .records-leave-to {
+            opacity: 0;
+            transform: translateX(2px);
+        }
+        .nav {
+            background: linear-gradient(#2b6cb0,#ebf8ff);
+        }
+        .menu-container{
+            margin-top:-2.4rem;
+        }
+        .menu, .btn, .route-item {
+            transition: all 0.3s;
+        }
+        .fade-enter-active,
+        .fade-leave-active{
+            transition:all 0.5s;
+        }
+        .fade-enter,
+        .fade-leave-to{
+            opacity:0;
+        }
+        .transform-icon i{
+            transform:rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak class="h-screen bg-gray-100">
+        <nav class="nav flex flex-col items-center pt-5 h-64">
+            <span class="text-white text-2xl ">Search Route</span>
+        </nav>
+        <div class="pl-2 pr-2 flex w-full text-center text-xl space-x-1 sticky top-0 menu-container">
+            <a :class="{'menu rounded-t w-1/2 cursor-pointer py-1 px-3':true,'bg-gray-100  text-orange-600':selectedMenu=='search'}" @click.stop="selectedMenu='search'">Search</a>
+            <a :class="{'menu rounded-t w-1/2 cursor-pointer py-1 px-3':true,'bg-gray-100  text-orange-600':selectedMenu=='add'}" @click.stop="selectedMenu='add'">Add</a>
+        </div>
+        <transition name="fade" mode="out-in" appear>
+            <keep-alive>
+                <component :is="selectedMenu"></component>
+            </keep-alive>
+        </transition>       
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript"></script>
+    <script type="text/template" id="search">
+        <div class="pl-2 pr-2 flex flex-col">
+            <div class="flex py-4 px-6 mt-4 w-full">
+                <div class="flex flex-1  space-x-1">
+                    <input v-model.trim="search.source" placeholder="Source" class="appearance-none py-2 px-4 outline-none w-1/2 bg-white border border-gray-500" />
+                    <input v-model.trim="search.destination" placeholder="Destination" class="appearance-none py-2 px-4 outline-none w-1/2 bg-white border border-gray-500"
+                           @keyup.enter="searchRoutes" />
+                </div>
+                <a :class="{'btn cursor-pointer py-2 px-4 flex items-center justify-center border-t border-b border-r border-gray-500':true,'cursor-not-allowed':searching}"
+                   @click.stop="searchRoutes">
+                    <i class="material-icons">search</i>
+                </a>
+            </div>
+            <transition-group name="records" tag="div" class="flex flex-col py-2 px-4 w-full space-y-2">
+                <div v-for="route in allRoutes" :key="route" class="route-item bg-white flex w-full items-center justify-around rounded shadow py-4 px-6 cursor-pointer hover:shadow-xl">
+                    <span class="text-xl" v-for="(destination,index) in splitRoute(route)" :key="destination+'_'+index">
+                        <template v-if="destination=='icon'">
+                            <span class="transform-icon text-green-700">
+                                <i class="material-icons">airplanemode_active</i>
+                            </span>
+                        </template>
+                        <template v-else>
+                            {{destination}}
+                        </template>
+                    </span>
+                </div>
+                <div :key="-1" v-if="searching" class="bg-white flex w-full items-center justify-center rounded shadow py-4 px-6 cursor-pointer">
+                    <transition name="fade">
+                        <span class="text-lg text-blue-600" v-show="animateSearching">
+                            {{searchingText}}
+                        </span>
+                    </transition>
+                </div>
+            </transition-group>
+        </div>
+    </script>
+    <script type="text/template" id="add">
+        <div class="pl-2 pr-2 flex items-center justify-end">
+            <div class="w-1/2 flex flex-col py-4 px-6 space-y-8 shadow rounded bg-white mt-4">
+                <div class="flex flex-col">
+                    <label class="text-lg">Source:</label>
+                    <input v-model.trim="add.source" class="appearance-none py-1 px-3 outline-none rounded border border-blue-300" />
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-lg">Destination:</label>
+                    <input v-model.trim="add.destination" class="appearance-none py-1 px-3 outline-none rounded border border-blue-300" @keyup.enter="addRoute" />
+                </div>
+                <a :class="{'btn cursor-pointer bg-teal-800 hover:bg-teal-700 text-white py-2 px-4 flex items-center justify-center':true,'cursor-not-allowed':adding}"
+                   @click.stop="addRoute">
+                    <i class="material-icons">add</i>&nbsp;&nbsp;&nbsp;&nbsp;Add
+                </a>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+        let addComp = {
+            template: '#add',
+            data() {
+                return {
+                    add: {
+                        source: '',
+                        destination:''
+                    },
+                    adding:false
+                }
+            },
+            methods: {
+                async addRoute() {
+                    if (!this.adding && this.add.source != '' && this.add.destination != '') {
+                        this.adding = true;
+                        try {
+                            await axios.post('/api/route/add', { source: this.add.source, destination: this.add.destination });
+                            this.adding = false;
+                            this.add.source = '';
+                            this.add.destination = '';                         
+                        }
+                        catch{
+
+                        }
+                    }
+                },
+            }
+        }
+        let searchComp = {
+            template: '#search',
+            data() {
+                return{
+                    allDestination: [],
+                    search: {
+                        source: '',
+                        destination: ''
+                    },
+                    searching: false,
+                    allRoutes: [],
+                    animateSearching: true,
+                    intr: {},
+                    searchingText:'Searching fastest route...'
+                }
+            },
+            mounted() {
+                this.populateAllDestination();
+            },
+            destroyed() {
+                this.removeIntr();
+            },
+            methods: {
+                removeIntr() {
+                    clearInterval(this.intr);
+                },
+                setIntr() {
+                    this.intr = setInterval(() => {
+                        this.animateSearching = !this.animateSearching;
+                    }, 500);
+                },
+                splitRoute(route) {
+                    var spRoute = [];
+                    var ind = 0;
+                    route.split(',').forEach(el => {
+                        if (ind != 0)
+                            spRoute.push('icon');
+                        ind++;
+                        spRoute.push(el);
+                    });
+                    return spRoute;
+                },
+                async populateAllDestination() {
+                    try {
+                        let resp = await axios.get('/api/route/name');
+                        this.allDestination.splice(0);
+                        resp.data.forEach(el => {
+                            this.allDestination.push(el);
+                        })
+                    }
+                    catch{
+
+                    }
+
+                },
+                async searchRoutes() {
+                    if (!this.searching && this.search.source != '' && this.search.destination != '') {
+                        this.searching = true;
+                        this.setIntr();
+                        try {
+                            this.allRoutes.splice(0);
+                            this.searchingText= 'Searching fastest route...'
+                            setTimeout(async () => {
+                                let resp = await axios.get('/api/route/search/one?source=' + this.search.source + '&destination=' + this.search.destination);
+                                if (resp.data)
+                                    this.allRoutes.push(resp.data);
+                                let temp = resp.data;
+                                setTimeout(async () => {
+                                    resp = await axios.get('/api/route/search/all?source=' + this.search.source + '&destination=' + this.search.destination);
+                                    if (resp.data)
+                                        resp.data.forEach(el => {
+                                            if (temp !== el)
+                                                this.allRoutes.push(el);
+                                        });
+                                    this.searching = false;
+                                    this.search.source = '';
+                                    this.search.destination = '';
+                                    this.removeIntr();
+                                }, 3000);
+                                this.searchingText = 'Searching remaining routes...'
+                            }, 3000);
+                        }
+                        catch (err) {
+                            console.log(err);
+                        }
+                    }
+                }
+            }
+
+        }
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Welcome',
+                selectedMenu: 'search',                                
+            },
+            components: {
+                'add': addComp,
+                'search':searchComp
+            },
+            methods: {
+              
+            }
+        })
+    </script>
+</body >
+</html >
