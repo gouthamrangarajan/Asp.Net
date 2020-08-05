@@ -14,8 +14,8 @@ namespace AutoSuggestUsingTrie
             var allData = File.ReadAllText("Data\\loremipsum.txt");
             allData = allData.Replace("\n", ".");
             foreach (var dt in allData.Split('.'))
-            {
-                _root.AddString(dt.ToLower().Trim());
+            {                
+               _root.AddString(dt.ToLower().Trim());
             }
         }
 
