@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>2DArrayColorFill</title>
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" id="description" hid="description" content="2DArray Color Fill implementation like paint " />
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        .records-move {
+            transition: all 0.3s
+        }
+
+        .records-enter-active,
+        .records-leave-active {
+            transition: all 0.3s;
+        }
+
+        .records-enter,
+        .records-leave-to {
+            opacity: 0;
+            transform: translateX(2px);
+        }
+       .cell{
+           transition:all 0.3s;
+       }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak class="min-h-screen bg-gray-100">
+        <nav class="bg-teal-700 py-2 px-4 flex items-center justify-center text-white text-2xl sticky top-0">
+            Fill Color
+        </nav>
+        <div class="flex mt-8 items-center justify-center">
+            <div class="flex flex-col bg-white py-4 px-6 rounded w-3/4 ml-3 space-y-2">
+                <label class="text-lg text-orange-700">Option</label>
+                <div class="flex flex-row">
+                    <input type="radio" name="option" value="block" class="outline-none px-3 py-1 mt-1 mr-2" v-model="mode" />
+                    <label class="mr-4">Block</label>
+                    <input type="radio" name="option" value="unblock" class="outline-none px-3 py-1 mt-1 mr-2" v-model="mode" />
+                    <label class="mr-4">UnBlock</label>
+                    <input type="radio" name="option" value="fill" class="outline-none px-3 py-1 mt-1 mr-2" v-model="mode" />
+                    <label class="mr-4">Fill</label>
+                    <input type="radio" name="option" value="erase" class="outline-none px-3 py-1 mt-1 mr-2" v-model="mode" />
+                    <label class="mr-4">Remove Color</label>
+                </div>
+                <div class="flex flex-row">
+                    <input type="radio" name="color" value="blue" class="outline-none px-3 py-1 mt-1 mr-2" v-model="color" :disabled="mode!='fill'"/>
+                    <label class="text-blue-700 mr-4">Blue</label>
+                    <input type="radio" name="color" value="red" class="outline-none px-3 py-1 mt-1 mr-2" v-model="color" :disabled="mode!='fill'"/>
+                    <label class="text-red-700 mr-4">Red</label>
+                    <input type="radio" name="color" value="green" class="outline-none px-3 py-1 mt-1 mr-2" v-model="color" :disabled="mode!='fill'"/>
+                    <label class="text-green-700">Green</label>
+                </div>
+            </div>
+            <transition-group name="records" tag="div" class="flex flex-col space-y-2 w-full h-full items-center justify-center">
+                <div v-for="row in dimension" :key="row" class="flex space-x-2 w-full h-full items-center justify-center">
+                    <div v-for="col in dimension" :key="col" :class="getCellClass(row-1,col-1)"
+                         @click.stop="act(row-1,col-1)">
+                        
+                    </div>
+                </div>
+            </transition-group>
+        </div>        
+       
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript"></script>
+    <script type="text/javascript">
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'welcome',
+                dimension: 0,
+                color: 'blue',
+                mode: 'block',
+                blocks: [],
+                colors:[]
+
+            },
+            async created() {
+                try {
+                    let resp = await axios.get('/api/matrix/dimension');
+                    this.dimension = resp.data
+                }
+                catch (err) {
+                    console.log(err);
+                }
+            },
+            async mounted() {
+                await this.refreshBlocks();
+                await this.refreshColors();
+            },
+            methods: {
+                blockContains(row, col) {
+                    if (this.blocks.filter(el => el[0] == row && el[1] == col).length > 0)
+                        return true;
+                    return false;
+                },
+                getCellClass(row, col) {
+                    var cl = 'cell py-1 px-3 w-12 h-12 rounded cursor-pointer shadow hover:shadow-xl';
+                    if (this.blockContains(row, col))
+                        cl += ' bg-gray-300'
+                    cl += ' ' + this.getColor(row, col);
+                    return cl;
+                },
+                getColor(row, col) {
+                    var ft = this.colors.filter(el => el[0] == row && el[1] == col);
+                    if (ft.length > 0) {
+                        return 'bg-'+ft[0][2]+'-700';
+                    }
+                    return 'bg-white';
+                },
+                async refreshBlocks() {
+                    try {
+                        let resp = await axios.get('/api/matrix/cell/block');
+                        this.blocks.splice(0);
+                        resp.data.forEach(el => {
+                            this.blocks.push([el.item1, el.item2]);
+                        })
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                },
+                async refreshColors() {
+                    try {
+                        let resp = await axios.get('/api/matrix/cell/color');
+                        this.colors.splice(0);
+                        resp.data.forEach(el => {
+                            this.colors.push([el.item1, el.item2, el.item3]);
+                        });
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                },
+                async act(row, col) {
+                    let url = '/api/matrix/cell';
+                    switch (this.mode) {
+                        case 'fill': {
+                            url += '/fill';
+                            break;
+                        }
+                        case 'block': {
+                            url += '/block';
+                            break;
+                        }
+                        case 'unblock': {
+                            url += '/block/remove';
+                            break;
+                        }
+                        case 'erase': {
+                            url += '/color/erase';
+                            break;
+                        }
+                    }
+                    try {                        
+                        await axios.post(url, { row, col, color: this.color });
+                        await this.refreshBlocks();
+                        await this.refreshColors();
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
