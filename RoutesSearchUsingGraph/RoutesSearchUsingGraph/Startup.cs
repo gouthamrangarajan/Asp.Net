@@ -26,6 +26,7 @@ namespace RoutesSearchUsingGraph
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(typeof(Graph));
+            services.AddSingleton(typeof(Trie));
             services.AddControllers();            
             services.AddSpaStaticFiles(config =>
             {

@@ -13,21 +13,25 @@ namespace RoutesSearchUsingGraph.Controllers
     public class RouteController : ControllerBase
     {
         private Graph _graph;
+        private Trie _trie;
 
-        public RouteController(Graph graph)
+        public RouteController(Graph graph,Trie trie)
         {
             _graph = graph;
+            _trie = trie;
         }
 
         [HttpPost("add")]
         public void Add(RouteData routeData)
         {
             _graph.AddRoute(routeData.Source, routeData.Destination);
+            _trie.AddString(routeData.Source);
+            _trie.AddString(routeData.Destination);
         }
-        [HttpGet("name")]
-        public IEnumerable<string> GetAllNames()
+        [HttpGet("destination/search")]
+        public IEnumerable<string> SearchDestination(string query)
         {
-            return _graph.GetAllNames();
+            return _trie.Search(query);
         }
 
         [HttpGet("search/one")]

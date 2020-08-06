@@ -107,12 +107,7 @@ namespace RoutesSearchUsingGraph
             }
             return null;
         }
-
-        public IEnumerable<string> GetAllNames()
-        {
-            return _nodeLookup.Values.Select(s => s.Name);
-        }
-
+        
         private class Node
         {
             internal List<Node> Adjacent = new List<Node>();
