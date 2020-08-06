@@ -110,14 +110,12 @@ namespace _2DArrayColorFill
             matrix[dimension.Item1, dimension.Item2].SetColor(color);
 
             for (var rowNum = dimension.Item1 - 1; rowNum <= dimension.Item1 + 1; rowNum++)
+            {                                    
+                recursiveSetColor(new Tuple<int, int>(rowNum, dimension.Item2), color);                                 
+            }
+            for (var colNum = dimension.Item2 - 1; colNum <= dimension.Item2 + 1; colNum++)
             {
-                for(var colNum = dimension.Item2 - 1; colNum <= dimension.Item2 + 1; colNum++)
-                {
-                    if (rowNum != dimension.Item1 || colNum != dimension.Item2)
-                    {                       
-                        recursiveSetColor(new Tuple<int, int>(rowNum, colNum), color);
-                    }
-                }
+                recursiveSetColor(new Tuple<int, int>(dimension.Item1, colNum), color);
             }
         }
 
