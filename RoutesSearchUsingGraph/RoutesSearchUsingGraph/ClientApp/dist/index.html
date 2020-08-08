@@ -45,6 +45,16 @@
         .transform-icon i{
             transform:rotate(90deg);
         }
+        .slide-enter-active,
+        .slide-leave-active {
+            transition: all 0.3s;
+        }
+
+        .slide-enter,
+        .slide-leave-to {
+            opacity: 0;
+            transform:translateX(15rem);
+        }
     </style>
 </head>
 <body>
@@ -71,12 +81,12 @@
                 <div class="flex flex-1  space-x-1">
                     <div class="w-1/2">
                         <input v-model.trim="search.source" placeholder="Source" class="appearance-none py-2 px-4 outline-none w-full bg-white border border-gray-500" />
-                        <auto-suggest :query="search.source" @selected="search.source=$event"></auto-suggest>
+                        <auto-suggest :query="search.source" @selected="search.source=$event" :display="!searching"></auto-suggest>
                     </div>
                     <div class="w-1/2">
                         <input v-model.trim="search.destination" placeholder="Destination" class="appearance-none py-2 px-4 outline-none w-full bg-white border border-gray-500"
                                @keyup.enter="searchRoutes" />
-                        <auto-suggest :query="search.destination" @selected="search.destination=$event"></auto-suggest>
+                        <auto-suggest :query="search.destination" @selected="search.destination=$event" :display="!searching"></auto-suggest>
                     </div>
                 </div>
                 <a :class="{'btn cursor-pointer py-2 px-4 flex items-center justify-center border-t border-b border-r border-gray-500':true,'cursor-not-allowed':searching}"
@@ -97,14 +107,8 @@
                         </template>
                     </span>
                 </div>
-                <div :key="-1" v-if="searching" class="bg-white flex w-full items-center justify-center rounded shadow py-4 px-6 cursor-pointer">
-                    <transition name="fade">
-                        <span class="text-lg text-green-600" v-show="animateSearching">
-                            {{searchingText}}
-                        </span>
-                    </transition>
-                </div>
             </transition-group>
+            <notification v-bind="notification"></notification>
         </div>
     </script>
     <script type="text/template" id="add">
@@ -122,7 +126,8 @@
                    @click.stop="addRoute">
                     <i class="material-icons">add</i>&nbsp;&nbsp;&nbsp;&nbsp;Add
                 </a>
-            </div>
+            </div>  
+            <notification v-bind="notification"></notification>
         </div>
     </script>
     <script type="text/template" id="autoSuggest">
@@ -136,7 +141,32 @@
             </div>
         </transition>
     </script>
+    <script type="text/template" id="notification">
+        <transition name="slide" appear>
+            <div :class="'bg-white rounded fixed top-0 right-0 mt-12 mr-2 py-2 px-4 font-semibold text-'+color+'-700'" v-show="display">
+                {{msg}}
+            </div>
+        </transition>
+    </script>
     <script type="text/javascript">
+        Vue.component('notification', {
+            template: '#notification',
+            props: {
+                msg: {
+                    type: String,
+                    required: true
+                },
+                display: {
+                    type: Boolean,
+                    required: true
+                },
+                color: {
+                    type: String,
+                    required: false,
+                    default: 'blue'
+                }
+            }
+        });
         let autoSuggest = {
             template: '#autoSuggest',
             data() {
@@ -153,6 +183,11 @@
                 query: {
                     type: String,
                     required: true
+                },
+                display: {
+                    type: Boolean,
+                    required: false,
+                    default:true
                 }
             },
             methods: {
@@ -186,32 +221,54 @@
                     else {
                         this.hideSuggest();
                     }
+                },
+                display(newVal) {
+                    if (newVal==false)
+                        this.showSuggest = newVal;                    
                 }
             }
         }
         let addComp = {
-            template: '#add',
+            template: '#add',            
             data() {
                 return {
                     add: {
                         source: '',
                         destination: ''
                     },
-                    adding: false
+                    adding: false,
+                    notification: {
+                        msg: '', 
+                        display: false,
+                        color:''
+                    }
                 }
             },
             methods: {
+                toggleNotification(msg, color) {
+                    this.notification.display = false;
+                    this.$nextTick(() => {
+                        this.notification.display = true;
+                        this.notification.color = color;
+                        this.notification.msg = msg;
+                        setTimeout(() => {
+                            this.notification.display = false;
+                        }, 5000)
+                    });
+                },
                 async addRoute() {
                     if (!this.adding && this.add.source != '' && this.add.destination != '') {
                         this.adding = true;
+                        this.toggleNotification('Adding route...', 'blue');
                         try {
                             await axios.post('/api/route/add', { source: this.add.source, destination: this.add.destination });
                             this.adding = false;
                             this.add.source = '';
                             this.add.destination = '';
+                            this.toggleNotification('Successfully added route...', 'green');
                         }
                         catch{
-
+                            this.toggleNotification('Error adding route...', 'red');
                         }
                     }
                 },
@@ -226,30 +283,30 @@
                         destination: ''
                     },
                     searching: false,
-                    allRoutes: [],
-                    animateSearching: true,
-                    intr: {},
-                    searchingText: 'Searching fastest route...'
+                    allRoutes: [],                    
+                    notification: {
+                        msg: '',
+                        display: false,
+                        color:''
+
+                    }
                 }
             },
             components: {
                 'auto-suggest': autoSuggest
-            },
-            mounted() {
-                
-            },
-            destroyed() {
-                this.removeIntr();
-            },
+            },          
             methods: {
-                removeIntr() {
-                    clearInterval(this.intr);
-                },
-                setIntr() {
-                    this.intr = setInterval(() => {
-                        this.animateSearching = !this.animateSearching;
-                    }, 500);
-                },
+                toggleNotification(msg, color) {
+                    this.notification.display = false;
+                    this.$nextTick(() => {
+                        this.notification.display = true;
+                        this.notification.color = color;
+                        this.notification.msg = msg;
+                        setTimeout(() => {
+                            this.notification.display = false;
+                        }, 5000)
+                    });
+                },                
                 splitRoute(route) {
                     var spRoute = [];
                     var ind = 0;
@@ -264,31 +321,36 @@
                 async searchRoutes() {
                     if (!this.searching && this.search.source != '' && this.search.destination != '') {
                         this.searching = true;
-                        this.setIntr();
-                        try {
-                            this.allRoutes.splice(0);
-                            this.searchingText = 'Searching fastest route...'
-                            setTimeout(async () => {
-                                let resp = await axios.get('/api/route/search/one?source=' + this.search.source + '&destination=' + this.search.destination);
+                        this.toggleNotification('Searching fastest route...', 'blue');
+                        this.allRoutes.splice(0);
+                        let resp;
+                        setTimeout(async () => {
+                            try {
+                                resp = await axios.get('/api/route/search/one?source=' + this.search.source + '&destination=' + this.search.destination);
                                 if (resp.data)
                                     this.allRoutes.push(resp.data);
-                                let temp = resp.data;
-                                setTimeout(async () => {
-                                    resp = await axios.get('/api/route/search/all?source=' + this.search.source + '&destination=' + this.search.destination);
+                            }
+                            catch (err) {
+                                this.toggleNotification('Error searching routes...', 'red');
+                            }
+                            let temp = resp.data;
+                            this.toggleNotification('Searching all routes...', 'blue')
+                            setTimeout(async () => {                               
+                                try {
+                                     resp = await axios.get('/api/route/search/all?source=' + this.search.source + '&destination=' + this.search.destination);
                                     if (resp.data)
                                         resp.data.forEach(el => {
                                             if (temp !== el)
                                                 this.allRoutes.push(el);
                                         });
-                                    this.searching = false;                                    
-                                    this.removeIntr();
-                                }, 3000);
-                                this.searchingText = 'Searching remaining routes...'
+                                    this.searching = false;
+                                }
+                                catch (err) {
+                                    this.toggleNotification('Error searching routes...', 'red');
+                                }
                             }, 3000);
-                        }
-                        catch (err) {
-                            console.log(err);
-                        }
+                        }, 3000);
+
                     }
                 }
             }
@@ -298,7 +360,7 @@
             el: '#app',
             data: {
                 msg: 'Welcome',
-                selectedMenu: 'search',
+                selectedMenu: 'add',
             },
             components: {
                 'add': addComp,
