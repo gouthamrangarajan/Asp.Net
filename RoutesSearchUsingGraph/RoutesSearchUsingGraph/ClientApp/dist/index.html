@@ -55,6 +55,18 @@
             opacity: 0;
             transform:translateX(15rem);
         }
+        .auto-suggest-container::before {
+            position: absolute;
+            border-width: 0 10px 10px 10px;
+            left: 10%;
+            content: "";
+            border-style: solid;
+            border-color: transparent transparent #38b2ac transparent;
+            margin-left: -8px;
+            margin-top: -10px;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +144,7 @@
     </script>
     <script type="text/template" id="autoSuggest">
         <transition name="fade" mode="out-in">
-            <div class="bg-white border rounded border-teal-500 absolute w-1/4 z-10" v-show="items.length>0 && showSuggest">
+            <div class="auto-suggest-container bg-white border rounded border-teal-500 absolute w-1/4 z-10" v-show="items.length>0 && showSuggest">
                 <transition-group name="records" tag="ul" class="py-1 px-3">
                     <li v-for="item in items" :key="item" class="p-1 pl-2 rounded hover:bg-gray-300 cursor-pointer" @click.stop="itemSelected(item)">
                         <a>{{item}}</a>
