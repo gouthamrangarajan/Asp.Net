@@ -1,0 +1,13 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="offset-1">
+    <h3 class="display-6" style="color:var(--red)">Welcome @User.Claims.First(id=>id.Type=="name").Value</h3>    
+    <partial name="/pages/partial/_weatherForeCast.cshtml" model="@Model.WeatherForeCastData"/>
+    <br/>
+    <partial name="/pages/partial/_userClaims.cshtml"/> 
+</div>
