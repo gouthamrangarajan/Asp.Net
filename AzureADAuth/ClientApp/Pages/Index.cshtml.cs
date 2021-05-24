@@ -17,14 +17,12 @@ namespace ClientApp.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly IDownstreamWebApi _downstreamWebApi;
-        private readonly ITokenAcquisition _tokenacquisition;
+        private readonly IDownstreamWebApi _downstreamWebApi;        
 
-        public IndexModel(ILogger<IndexModel> logger,IDownstreamWebApi downstreamWebApi,ITokenAcquisition tokenAcquisition)
+        public IndexModel(ILogger<IndexModel> logger,IDownstreamWebApi downstreamWebApi)
         {
             _logger = logger;
-            _downstreamWebApi = downstreamWebApi;
-            _tokenacquisition=tokenAcquisition;            
+            _downstreamWebApi = downstreamWebApi;            
         }
 
         public IEnumerable<WeatherForecast> WeatherForeCastData;
