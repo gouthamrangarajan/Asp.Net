@@ -5,7 +5,7 @@ Sample demo to send notification to Client using SignalR.
 - Server & Client belong to different domain & solution
 - Server folder contains two functionalities
   - SignalR to send real time notification/data to client
-  - A Background service to check if any new notification is available and send that info to SignalR service (in the sample its sends dummy message every 5 seconds)
+  - A Background service to check if any new data is available and send that info to SignalR service (in the sample its sends dummy message every 5 seconds)
 - Client folder is a simple html & javascript listening to SignalR
 
 The design can be depicted using below \
