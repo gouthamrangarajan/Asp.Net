@@ -1,14 +1,14 @@
 ### SignalR service hosted with background services
 
-Sample demo to send notification to Client using SignalR.\
+Sample demo to send notification to Client using SignalR.
 
 - Server & Client belong to different domain & solution
 - Server folder contains two functionalities
   - SignalR to send real time notification/data to client
   - A Background service to check if any new notification is available and send that info to SignalR service (in the sample its sends dummy message every 5 seconds)
-- Client folder is a simple html & javascript listening to SignalR\
+- Client folder is a simple html & javascript listening to SignalR
 
-The overrall design is shown below\
+The design can be depicted using below \
 ![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Design.png)
 
 ### Server Code highlights
