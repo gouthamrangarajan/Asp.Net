@@ -87,7 +87,7 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 ### Client
 
 UI Screenshot is shown below\
-![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Client_Screenshot.PNG)
+![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Client.PNG)
 
 ##### javascript code in index.html
 
