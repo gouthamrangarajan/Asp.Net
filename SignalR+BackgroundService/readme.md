@@ -1,8 +1,8 @@
 ### SignalR service hosted with background services
 
-Sample demo to send notification to Client using SignalR
-The overrall design is shown below
-![design image](https://github.com/gouthamrangarajan/Asp.Net/SignalR+BackgroundService/Design.png)
+Sample demo to send notification to Client using SignalR.\
+The overrall design is shown below\
+![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Design.png)
 
 ### Server Code highlights
 
@@ -79,8 +79,8 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 
 ### Client
 
-UI Screenshot is shown below
-![design image](https://github.com/gouthamrangarajan/Asp.Net/SignalR+BackgroundService/Client_Screenshot.png)
+UI Screenshot is shown below\
+![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Client_Screenshot.PNG)
 
 ##### javascript code in index.html
 
@@ -102,7 +102,7 @@ const useSignalRConnection = (callback) => {
 
 ### Official Links
 
-[https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-5.0&tabs=visual-studio-code](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-5.0&tabs=visual-studio-code)
-[https://docs.microsoft.com/en-us/aspnet/core/signalr/background-services?view=aspnetcore-5.0](https://docs.microsoft.com/en-us/aspnet/core/signalr/background-services?view=aspnetcore-5.0)
-[https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-5.0](https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-5.0)
-[https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-5.0](https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-5.0)
+[https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-5.0&tabs=visual-studio-code](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-5.0&tabs=visual-studio-code)\
+[https://docs.microsoft.com/en-us/aspnet/core/signalr/background-services?view=aspnetcore-5.0](https://docs.microsoft.com/en-us/aspnet/core/signalr/background-services?view=aspnetcore-5.0)\
+[https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-5.0](https://docs.microsoft.com/en-us/aspnet/core/signalr/authn-and-authz?view=aspnetcore-5.0)\
+[https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-5.0](https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-5.0)\
