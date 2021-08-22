@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignalR+BackgroundService-Client</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      .items-move {
+        transition: transform 0.3s;
+      }
+      .items-enter-active,
+      .items-leave-active {
+        transition: all 0.3s;
+      }
+      .items-enter-from,
+      .items-leave-to {
+        opacity: 0;
+        transform: translateX(2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <nav
+        class="
+          sticky
+          top-0
+          border-b border-gray-300
+          bg-white
+          py-2
+          lg:py-4
+          px-4
+          lg:px-6
+          flex
+          justify-between
+        "
+      >
+        <span class="text-xl font-semibold text-green-700">
+          SignalR+BackgroundService
+        </span>
+        <span class="text-green-700 font-semibold"> Client </span>
+      </nav>
+      <div
+        class="
+          mt-1
+          lg:mt-4
+          w-full
+          flex flex-col
+          space-y-1
+          items-center
+          justify-center
+        "
+      >
+        <img
+          src="bell.png"
+          class="w-12 h-12 rounded-full shadow bg-purple-300"
+        />
+        <transition-group
+          class="shadow bg-white flex flex-col w-64"
+          name="items"
+          tag="ul"
+        >
+          <li
+            v-for="notification in notifications"
+            :key="notification.id"
+            class="
+              py-2
+              px-4
+              cursor-pointer
+              hover:bg-gray-100
+              border-b border-gray-300
+              flex
+              justify-between
+              items-center
+            "
+          >
+            <span>{{notification.msg}}</span>
+            <span
+              class="text-red-600 hover:text-red-700 text-xl"
+              @click="clear(notification.id)"
+              >&times;</span
+            >
+          </li>
+        </transition-group>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript">
+      const useSignalRConnection = (callback) => {
+        let connection = new signalR.HubConnectionBuilder()
+          .withUrl("https://localhost:5001/hubs/notification")
+          .build();
+        connection.on("NotifyAll", (info) => {
+          callback(info);
+        });
+        connection.start().catch((err) => {
+          console.log(err);
+        });
+      };
+      const notification = {
+        setup() {
+          const notifications = Vue.ref([]);
+          useSignalRConnection((info) => {
+            notifications.value.push(info);
+          });
+          const clear = (id) => {
+            notifications.value = notifications.value.filter(
+              (el) => el.id != id
+            );
+          };
+          return { notifications, clear };
+        },
+      };
+      Vue.createApp(notification).mount("#app");
+    </script>
+  </body>
+</html>
