@@ -64,7 +64,7 @@
           class="w-12 h-12 rounded-full shadow bg-purple-300"
         />
         <transition-group
-          class="shadow bg-white flex flex-col w-64"
+          class="shadow bg-white flex flex-col w-96"
           name="items"
           tag="ul"
         >
@@ -98,6 +98,7 @@
       const useSignalRConnection = (callback) => {
         let connection = new signalR.HubConnectionBuilder()
           .withUrl("https://localhost:5001/hubs/notification")
+          .withAutomaticReconnect()
           .build();
         connection.on("NotifyAll", (info) => {
           callback(info);

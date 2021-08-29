@@ -94,13 +94,13 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 {
   while (!stoppingToken.IsCancellationRequested)
   {
-        if(_connectedUsers.Cache.Count!=0){
-          var randConnectionInd= new Random().Next(0, _connectedUsers.Cache.Count);
-          var randConnection=_connectedUsers.Cache.ToList()[randConnectionInd];
-          _logger.LogInformation($"Sending info to {randConnection}");
-          await _hub.Clients.Client(randConnection).Notify(new {msg=$"Hello user, sending random message",id=new Random().Next(1,1000000000)});
-      }
-      await Task.Delay(10000);
+    if(_connectedUsers.Cache.Count!=0){
+        var randConnectionInd= new Random().Next(0, _connectedUsers.Cache.Count);
+        var randConnection=_connectedUsers.Cache.ToList()[randConnectionInd];
+        _logger.LogInformation($"Sending info to {randConnection}");
+        await _hub.Clients.Client(randConnection).Notify(new {msg=$"Hello user ${randConnection}, sending random message",id=new Random().Next(1,1000000000)});
+    }
+    await Task.Delay(10000);
   }
 }
 ```
