@@ -36,6 +36,7 @@ namespace SignalR_BackgroundService
                     builder.AllowAnyHeader();
                 });
             });
+            services.AddSingleton<ConnectedUsers>();
             services.AddSignalR();
             services.AddHostedService<NotificationService>();
         }
