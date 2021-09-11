@@ -138,20 +138,20 @@ UI Screenshot is shown below\
 
 ```javascript
 const useSignalRConnection = (callback) => {
- let connection = new signalR.HubConnectionBuilder()
-          .withUrl("https://localhost:5001/hubs/notification")
-          .withAutomaticReconnect()
-          .build();
- connection.on("NotifyAll", (info) => {
-          callback(info);
-        });
- connection.on("Notify", (info) => {
-          callback(info);
-        });
- connection.start().catch((err) => {
-         console.log(`Connection start error ${err}`);
-        });
-      };
+  let connection = new signalR.HubConnectionBuilder()
+    .withUrl("https://localhost:5001/hubs/notification")
+    .withAutomaticReconnect()
+    .build();
+  connection.on("NotifyAll", (info) => {
+    callback(info);
+  });
+  connection.on("Notify", (info) => {
+    callback(info);
+  });
+  connection.start().catch((err) => {
+    console.log(`Connection start error ${err}`);
+  });
+};
 ```
 
 - Sample UI done using Vue js and Tailwind CSS
