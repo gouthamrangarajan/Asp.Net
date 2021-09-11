@@ -134,7 +134,7 @@ public void RemoveConnection(string connectionId){
 UI Screenshot is shown below\
 ![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Client.PNG)
 
-##### javascript code in index.html
+##### javascript code in Client\main.js
 
 ```javascript
 const useSignalRConnection = (callback) => {
@@ -154,7 +154,7 @@ const useSignalRConnection = (callback) => {
 };
 ```
 
-- Sample UI done using Vue js and Tailwind CSS
+- Sample UI done using Vite, Vue js and Tailwind CSS
 
 Once Authentication is achieved the design can be depicted using below \
 ![design image](https://github.com/gouthamrangarajan/Asp.Net/blob/master/SignalR%2BBackgroundService/Authentication.png)

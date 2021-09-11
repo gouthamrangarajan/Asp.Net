@@ -31,7 +31,7 @@ namespace SignalR_BackgroundService
             //services.AddControllers();
             services.AddCors(options=>{
                 options.AddPolicy("AllowLocalhostClient",builder=>{
-                    builder.WithOrigins("http://127.0.0.1:5500");
+                    builder.WithOrigins("http://localhost:3000");
                     builder.AllowCredentials();
                     builder.AllowAnyHeader();
                 });

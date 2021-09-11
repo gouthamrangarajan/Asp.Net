@@ -1,0 +1,15 @@
+[v-cloak] {
+  display: none;
+}
+.items-move {
+  transition: transform 0.3s;
+}
+.items-enter-active,
+.items-leave-active {
+  transition: all 0.3s;
+}
+.items-enter-from,
+.items-leave-to {
+  opacity: 0;
+  transform: translateX(2px);
+}
