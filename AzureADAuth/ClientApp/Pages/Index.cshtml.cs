@@ -31,7 +31,7 @@ namespace ClientApp.Pages
         public bool Refresh{get;set;}
         public async Task OnGetAsync()
         {
-            if(Refresh){                                           
+            if(Refresh){                                                           
                 this.WeatherForeCastData=await _downstreamWebApi.CallWebApiForUserAsync<IEnumerable<WeatherForecast>>("WebApi",options=>{
                     options.HttpMethod=HttpMethod.Get;
                     options.RelativePath="weatherforecast";                                        
