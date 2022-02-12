@@ -29,11 +29,15 @@ namespace ClientApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddStackExchangeRedisCache(options=>{
+                options.InstanceName=Configuration.GetValue<string>("Redis:Instance");
+                options.Configuration=$"{Configuration.GetValue<string>("Redis:Url")},password={Configuration.GetValue<string>("Redis:Password")}";                
+            });
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"))
                  .EnableTokenAcquisitionToCallDownstreamApi(new string[]{ Configuration.GetSection("WebApi").GetValue<string>("Scopes")})
                                 .AddDownstreamWebApi("WebApi", Configuration.GetSection("WebApi"))
-            .AddInMemoryTokenCaches();
+            .AddDistributedTokenCaches();
             services.AddControllers();
             services.AddRazorPages().AddMicrosoftIdentityUI();
         }
