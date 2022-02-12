@@ -18,7 +18,7 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app
 "Scopes": "Scopes"
 },
 "Redis": {
-"Url": "REDIS_URL",
+"Url": "REDIS_URL_WITH_PORT",
 "Password": "REDIS_PASSWORD",
 "Instance": "REDIS_INSTANCE"
 }
