@@ -5,8 +5,10 @@
 1. Startup.cs
 
 ```C#
+//RG if i don't use the below code the Dependency Injection setup throws exception during runtime
 services.AddIdentity<IdentityUser,IdentityRole>().AddUserStore<UserStore>().AddRoleStore<RoleStore>()
-                    .AddDefaultTokenProviders();
+        .AddDefaultTokenProviders();
+services.AddTransient<IUserStore<IdentityUser>,UserStore>();
 
 services.AddAuthentication().AddMicrosoftAccount(microsoftOptions=>{
     microsoftOptions.ClientId = Configuration["MicrosoftAuth:ClientId"];
@@ -67,12 +69,14 @@ public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, str
         return RedirectToPage("./");
     }
     _logger.LogInformation("Call back from External Provider: Received Claims");
-
-    await _signInManager.SignInWithClaimsAsync(new IdentityUser{
+    var user=new IdentityUser{
         Email=info.Principal.Claims.First(f=>f.Type==System.Security.Claims.ClaimTypes.Email).Value,
         Id=info.Principal.Claims.First(f=>f.Type==System.Security.Claims.ClaimTypes.NameIdentifier).Value,
         UserName=info.Principal.Claims.First(f=>f.Type==System.Security.Claims.ClaimTypes.Email).Value
-    },true,info.Principal.Claims);
+    };
+    var T1= _signInManager.SignInWithClaimsAsync(user,true,info.Principal.Claims);
+    var T2=_userStore.CreateAsync(user,System.Threading.CancellationToken.None);
+    Task.WaitAll(T1,T2);
     return RedirectToPage("./Auth");
 }
 ```

@@ -1,20 +1,49 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
 namespace AzureAD_GmailAuth.Models
 {
+    //RG should actually write to a db, temporarily writing to file for POC purpose    
     public class UserStore : IUserStore<IdentityUser>
     {
-        public  Task<IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(IdentityUser user, CancellationToken cancellationToken)
         {                        
-            throw new NotImplementedException();
+            if(user==null)
+                throw new ArgumentNullException(nameof(user));
+            
+            if(File.Exists("users.txt"))
+            {
+                var lines=await File.ReadAllLinesAsync("users.txt");            
+                foreach(var line in lines){
+                    var userObj=JsonSerializer.Deserialize<IdentityUser>(line);
+                    if(userObj.Id==user.Id)
+                        return IdentityResult.Success;
+                }
+            }
+            
+            await File.AppendAllLinesAsync("users.txt",new List<string>{JsonSerializer.Serialize(user)});
+            return IdentityResult.Success;
         }
 
-        public  Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
+        public  async Task<IdentityResult> DeleteAsync(IdentityUser user, CancellationToken cancellationToken)
         {            
-            throw new NotImplementedException();
+            var lines=await File.ReadAllLinesAsync("users.txt");
+            var userList=new List<IdentityUser>();
+            foreach(var line in lines){
+                var userObj=JsonSerializer.Deserialize<IdentityUser>(line);
+                if(userObj.Id!=user.Id)
+                    userList.Add(userObj);
+            }
+            await File.WriteAllTextAsync("users.txt","");
+            foreach(var userObj in userList){
+                await File.AppendAllLinesAsync("users.txt",new List<string>{JsonSerializer.Serialize(userObj)});
+            }
+            return IdentityResult.Success;
         }
 
         public void Dispose()
@@ -22,9 +51,15 @@ namespace AzureAD_GmailAuth.Models
             
         }
 
-        public  Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
-        {         
-            throw new NotImplementedException();
+        public async Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        {
+            var lines=await File.ReadAllLinesAsync("users.txt");            
+            foreach(var line in lines){
+                var userObj=JsonSerializer.Deserialize<IdentityUser>(line);
+                if(userObj.Id==userId)
+                    return userObj;
+            }
+            throw new Exception("User Not Found ");
         }
 
         public  Task<IdentityUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)

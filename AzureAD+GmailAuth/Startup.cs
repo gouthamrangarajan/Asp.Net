@@ -26,7 +26,7 @@ namespace AzureAD_GmailAuth
             //RG if i don't use the below code the Dependency Injection setup throws exception during runtime
             services.AddIdentity<IdentityUser,IdentityRole>().AddUserStore<UserStore>().AddRoleStore<RoleStore>()                                        
                     .AddDefaultTokenProviders();
-            
+            services.AddTransient<IUserStore<IdentityUser>,UserStore>();
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions=>{
                 microsoftOptions.ClientId = Configuration["MicrosoftAuth:ClientId"];
                 microsoftOptions.ClientSecret = Configuration["MicrosoftAuth:ClientSecret"];   
@@ -64,7 +64,9 @@ namespace AzureAD_GmailAuth
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //RG  don't do the below during prod 
+                app.UseDeveloperExceptionPage();
+                // app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

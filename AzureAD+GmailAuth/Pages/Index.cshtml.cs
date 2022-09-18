@@ -14,11 +14,13 @@ namespace MyApp.Namespace
     {
         private SignInManager<IdentityUser> _signInManager;
         private ILogger<IndexModel> _logger;
+        private IUserStore<IdentityUser> _userStore;
 
-        public IndexModel(SignInManager<IdentityUser> signInManager,ILogger<IndexModel> logger)
+        public IndexModel(SignInManager<IdentityUser> signInManager,ILogger<IndexModel> logger,IUserStore<IdentityUser> userStore)
         {
             _signInManager=signInManager;           
             _logger=logger; 
+            _userStore=userStore;
         }
 
         public void OnGet()
@@ -32,7 +34,7 @@ namespace MyApp.Namespace
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);            
             return new ChallengeResult(provider, properties);
         }        
-         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
         {            
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -53,11 +55,14 @@ namespace MyApp.Namespace
             // http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname=>Goutham
             // http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname=>Rangarajan
             // http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress=>grangarajan@ana-data.com
-            await _signInManager.SignInWithClaimsAsync(new IdentityUser{
+            var user=new IdentityUser{
                 Email=info.Principal.Claims.First(f=>f.Type==System.Security.Claims.ClaimTypes.Email).Value,    
                 Id=info.Principal.Claims.First(f=>f.Type==System.Security.Claims.ClaimTypes.NameIdentifier).Value,    
                 UserName=info.Principal.Claims.First(f=>f.Type==System.Security.Claims.ClaimTypes.Email).Value
-            },true,info.Principal.Claims);
+            };            
+            var T1= _signInManager.SignInWithClaimsAsync(user,true,info.Principal.Claims);
+            var T2=_userStore.CreateAsync(user,System.Threading.CancellationToken.None);
+            Task.WaitAll(T1,T2);            
             return RedirectToPage("./Auth");         
         }
         
