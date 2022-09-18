@@ -51,8 +51,9 @@ namespace AzureAD_GmailAuth.Models
             
         }
 
+        //there is a scenario where this method is called by Auth Code to figure out User from UserStore 
         public async Task<IdentityUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
-        {
+        {            
             var lines=await File.ReadAllLinesAsync("users.txt");            
             foreach(var line in lines){
                 var userObj=JsonSerializer.Deserialize<IdentityUser>(line);
