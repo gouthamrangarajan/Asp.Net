@@ -1,0 +1,15 @@
+﻿@page
+@model MyApp.Namespace.IndexModel
+@{
+    ViewData["Title"] = "Landing page";
+}
+<h3 class="text-lg text-pink-600 font-semibold">Welcome</h3> 
+<br/>
+<form class="flex flex-col space-y-2" method="post">
+    <button name="provider" type="submit" class="appearance-non outline-none py-2 px-4 rounded bg-red-600 text-white transition 
+                duration-300 focus:ring-2 focus:ring-red-600
+                focus:ring-offset-2 focus:ring-offset-red-50 w-48" value="Google">Login With Google</button>
+    <button name="provider" type="submit" class="appearance-non outline-none py-2 px-4 rounded bg-blue-600 text-white transition
+                 duration-300 focus:ring-2 focus:ring-blue-600
+                focus:ring-offset-2 focus:ring-offset-blue-50 w-48" value="Microsoft">Login With Microsoft</button>
+</form> 

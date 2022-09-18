@@ -1,0 +1,22 @@
+﻿@{
+}
+<h4 class="text-green-600 font-semibold text-lg">User Claims Data</h4>    
+<table class="table  table-fixed border-separate border-spacing-2 border border-slate-500 rounded">
+    <thead class="bg-orange-700 text-white">
+        <tr>
+            <th class="py-1 px-3 text-left border border-slate-600 rounded font-normal">Type</th>
+            <th class="py-1 px-3 text-left border border-slate-600 rounded font-normal">Value</th>            
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var record in User.Claims.Where(cl=>cl.Type!="aio"))
+        {
+            <tr>
+                <td class="py-1 px-3 break-all border border-slate-600 rounded">@record.Type</td>
+                <td class="py-1 px-3 break-all border border-slate-600 rounded">@record.Value</td>                
+            </tr>
+        }
+    </tbody>
+    
+</table>

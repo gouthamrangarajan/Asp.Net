@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header>
+        <nav class="shadow w-full bg-white py-2 px-4">
+            <div class="w-full max-w-5xl flex justify-between text-gray-700 items-center mx-auto">
+                <div class="flex items-center space-x-3">
+                    <a class="appearance-none outline-none p-1 focus:ring-1 focus:ring-blue-600 transition duration-300 text-xl
+                                text-blue-600 font-semibold hover:opacity-90 rounded"
+                          asp-page="/Index">WebApp</a>
+                    <a class="appearance-none outline-none p-1 focus:ring-1 focus:ring-indigo-600 transition duration-300
+                                text-indigo-600 font-semibold hover:opacity-90 rounded" 
+                         asp-page="/Auth">Home</a>
+                    <a class="appearance-none outline-none p-1 focus:ring-1 focus:ring-indigo-600 transition duration-300
+                                text-indigo-600 font-semibold hover:opacity-90 rounded" 
+                         asp-page="/Privacy">Privacy</a>
+                </div>                                
+                @if(User!=null && User.Claims!=null && User.Claims.Count()>0){
+                    <a class="appearance-none outline-none p-1 focus:ring-1 focus:ring-gray-700 transition duration-300
+                                border border-gray-600 focus:ring-offset-2 focus:ring-offset-white rounded" 
+                         asp-page="/SignOut" >
+                        Logout
+                    </a>
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="w-full min-h-[86.3vh]">
+        <main role="main" class="w-full max-w-5xl mx-auto py-4 px-6">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-slate-200 w-full">
+        <div class="w-full max-w-5xl mx-auto py-4 px-6">
+            &copy; 2022 - WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
