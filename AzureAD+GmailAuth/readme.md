@@ -94,22 +94,22 @@ public async Task<IActionResult> OnPost(string provider)
 
 ### Screenshots
 
-[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD+GmailAuth/Screenshot1.PNG)
-[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD+GmailAuth/Screenshot2.PNG)
-[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD+GmailAuth/Screenshot3.PNG)
+[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot1.png)
+[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot2.png)
+[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot3.png)
 
 #### Few documentation I glanced to achieve this
 
--[Client Id, Client Secret & Microsoft Login Code Changes](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-6.0)
+- [Client Id, Client Secret & Microsoft Login Code Changes](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-6.0)
 
--[Client Id, Client Secret & Google Login Code Changes](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-6.0)
+- [Client Id, Client Secret & Google Login Code Changes](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-6.0)
 
--[Code to request External Provider Authorization Url based on selected Extenal provider by user](https://github.com/dotnet/aspnetcore/blob/main/src/Security/samples/Identity.ExternalClaims/Pages/Account/ExternalLogin.cshtml.cs)
+- [Code to request External Provider Authorization Url based on selected Extenal provider by user](https://github.com/dotnet/aspnetcore/blob/main/src/Security/samples/Identity.ExternalClaims/Pages/Account/ExternalLogin.cshtml.cs)
 
--[Custom Store example](https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)
+- [Custom Store example](https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)
 
--[https://github.com/dotnet/aspnetcore/blob/main/src/Security/samples/Identity.ExternalClaims/Startup.cs](https://github.com/dotnet/aspnetcore/blob/main/src/Security/samples/Identity.ExternalClaims/Startup.cs)
+- [https://github.com/dotnet/aspnetcore/blob/main/src/Security/samples/Identity.ExternalClaims/Startup.cs](https://github.com/dotnet/aspnetcore/blob/main/src/Security/samples/Identity.ExternalClaims/Startup.cs)
 
--[https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/Startup.cs](https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/Startup.cs)
+- [https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/Startup.cs](https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/Startup.cs)
 
--[https://github.com/dotnet/aspnetcore/tree/main/src/Security/samples](https://github.com/dotnet/aspnetcore/tree/main/src/Security/samples)
+- [https://github.com/dotnet/aspnetcore/tree/main/src/Security/samples](https://github.com/dotnet/aspnetcore/tree/main/src/Security/samples)
