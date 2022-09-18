@@ -94,9 +94,9 @@ public async Task<IActionResult> OnPost(string provider)
 
 ### Screenshots
 
-[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot1.png)
-[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot2.png)
-[screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot3.png)
+![Screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot1.png)
+![Screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot2.png)
+![Screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/AzureAD%2BGmailAuth/Screenshot3.png)
 
 #### Few documentation I glanced to achieve this
 
