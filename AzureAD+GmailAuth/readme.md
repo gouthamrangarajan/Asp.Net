@@ -58,7 +58,7 @@ public async Task<IActionResult> OnPost(string provider)
     var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
     return new ChallengeResult(provider, properties);
 }
-    public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
+public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
 {
     var info = await _signInManager.GetExternalLoginInfoAsync();
     if (info == null)
