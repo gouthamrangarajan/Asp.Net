@@ -23,7 +23,7 @@ namespace AzureAD_GmailAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            //RG if i don't use the below code the Dependency Injection setup throws exception during runtime
             services.AddIdentity<IdentityUser,IdentityRole>().AddUserStore<UserStore>().AddRoleStore<RoleStore>()                                        
                     .AddDefaultTokenProviders();
             
