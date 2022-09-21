@@ -28,4 +28,5 @@ public async Task<IEnumerable<WeatherForecast>?> Get(CancellationToken token)
 ```
 
 - To test it , hit the get url in browser https://localhost:7257/weatherforecast and close the browser tab within 4 seconds.
+- OR if vscode and REST client extensions are available use test.http
 - We can see the exception getting logged

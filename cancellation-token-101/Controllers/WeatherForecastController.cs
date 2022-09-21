@@ -41,6 +41,7 @@ public class WeatherForecastController : ControllerBase
     }
     [HttpPost(Name="PostWeatherForeCast")]
     public async Task<IEnumerable<WeatherForecast>?> Post([FromBody]PostRequest request,CancellationToken token)
+    //RG for post most proabably a request will be sent in body/any other means preferred and cancellationToken will be a separate object
     {
         try{
             await Task.Delay(4000,token);
