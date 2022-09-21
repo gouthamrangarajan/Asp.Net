@@ -1,0 +1,10 @@
+###
+https://localhost:7257/weatherforecast
+
+###
+POST https://localhost:7257/weatherforecast HTTP/1.1
+content-type: application/json
+
+{
+    "id":10
+}
