@@ -22,7 +22,7 @@ public async Task<IActionResult> Filter(){
 }
 ```
 
-- call this controller method from htmx
+- call this controller method using htmx
 
 ```html
 <form
