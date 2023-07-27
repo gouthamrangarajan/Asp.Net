@@ -47,7 +47,7 @@ public async Task<IActionResult> Filter(){
 </div>
 ```
 
-- script to include in \_layout.cshtml
+- script to include in \_layout.cshtml (no additional javascript or jquery is required)
 
 ```html
 <script
