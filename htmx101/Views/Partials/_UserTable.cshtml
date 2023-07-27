@@ -1,0 +1,22 @@
+@model IEnumerable<UserViewModel>
+
+<table class="table-fixed w-full">
+    <thead>
+        <tr>
+            <th class="py-2 px-4 text-left border-b border-gray-300 border-dashed">Name</th>
+            <th class="py-2 px-4 text-left border-b border-gray-300 border-dashed">UserName</th>
+            <th class="py-2 px-4 text-left border-b border-gray-300 border-dashed">Phone</th>
+            <th class="py-2 px-4 text-left border-b border-gray-300 border-dashed">Website</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var data in Model){
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-300 border-dashed"><div class="flex"><span class="animation-slide-down">@data.Name</span></div></td>
+                <td class="py-2 px-4 border-b border-gray-300 border-dashed"><div class="flex"><span class="animation-slide-down">@data.UserName</span></div></td>
+                <td class="py-2 px-4 border-b border-gray-300 border-dashed"><div class="flex"><span class="animation-slide-down break-all">@data.Phone</span></div></td>
+                <td class="py-2 px-4 border-b border-gray-300 border-dashed"><div class="flex"><span class="animation-slide-down">@data.Website</span></div></td>
+            </tr>
+        }
+    </tbody>
+</table>
