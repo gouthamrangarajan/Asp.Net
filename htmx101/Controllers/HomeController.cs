@@ -10,6 +10,7 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
 
     private IEnumerable<UserViewModel>? _vmCache=null;
+    private HttpClient httpClient= new HttpClient();
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -17,8 +18,7 @@ public class HomeController : Controller
     }
 
     public async Task<IActionResult> Index()
-    {
-        var httpClient=new HttpClient();
+    {        
         _vmCache??=await httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>("https://jsonplaceholder.typicode.com/users");
         return View(_vmCache);
     }
