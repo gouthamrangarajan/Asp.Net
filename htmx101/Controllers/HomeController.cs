@@ -25,13 +25,20 @@ public class HomeController : Controller
         var model=await getNewOrCachedData();
         return PartialView("/Views/Partials/_UserTable.cshtml",model);
     }
-    private async Task<IEnumerable<UserViewModel>> getNewOrCachedData(){
+    private async Task<IEnumerable<UserViewModel>?> getNewOrCachedData(){
         IEnumerable<UserViewModel> vm=new List<UserViewModel>();   
         var srchTrm="";
         if(Request.QueryString.Value!=null && Request.QueryString.Value.ToLower().Contains("search"))
             srchTrm= Request.Query.First(f=>f.Key=="search").Value.ToString().ToLower();
 
-        _vmCache??=await httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>("https://jsonplaceholder.typicode.com/users");
+         try{            
+            _vmCache??=await httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>("https://jsonplaceholder.typicode.com/users");
+        }   
+        catch(Exception e){
+            _logger.LogError("Error calling json placeholder api",e);
+            return null;
+        }
+        
         if(_vmCache is not null)
             vm=_vmCache.Where(f=>f.UserName.ToLower().Contains(srchTrm) || f.Name.ToLower().Contains(srchTrm)
                                  || f.Website.ToLower().Contains(srchTrm) || f.Phone.Contains(srchTrm));

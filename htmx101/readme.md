@@ -101,7 +101,7 @@ public async Task<IActionResult> Index(){
   </tbody>
 </table>
 ```
-
+- [Demo](https://htmx101.azurewebsites.net/)
 - screenshot (notice the focus in input is never lost during search)
 
 ![Screenshot](https://github.com/gouthamrangarajan/Asp.Net/blob/master/htmx101/screenshot.gif)
