@@ -26,12 +26,12 @@ public class HomeController : Controller
         return PartialView("/Views/Partials/_UserTable.cshtml",model);
     }
     private async Task<IEnumerable<UserViewModel>> getNewOrCachedData(){
-        IEnumerable<UserViewModel> vm=new List<UserViewModel>();   
+        IEnumerable<UserViewModel> vm=Array.Empty<UserViewModel>();   
         var srchTrm="";
         if(Request.QueryString.Value!=null && Request.QueryString.Value.ToLower().Contains("search"))
             srchTrm= Request.Query.First(f=>f.Key=="search").Value.ToString().ToLower();
 
-         try{            
+         try{       
             _vmCache??=await httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>("https://jsonplaceholder.typicode.com/users");
         }   
         catch(Exception e){
