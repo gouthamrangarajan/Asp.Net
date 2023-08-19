@@ -7,19 +7,15 @@
 - a simple controller method to send partial view (can be view also)
 
 ```C#
-public async Task<IActionResult> Filter(){
-    var httpClient=new HttpClient();
-    IEnumerable<UserViewModel> vm=new List<UserViewModel>();
-    var srchTrm="";
-    if(Request.QueryString.Value!=null && Request.QueryString.Value.ToLower().Contains("search"))
-        srchTrm= Request.Query.First(f=>f.Key=="search").Value.ToString().ToLower();
+public async Task<IActionResult> Index(){
+        var model=await getNewOrCachedData();
+        return View(model);
+    }
 
-    _vmCache??=await httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>("https://jsonplaceholder.typicode.com/users");
-    if(_vmCache is not null)
-        vm=_vmCache.Where(f=>f.UserName.ToLower().Contains(srchTrm) || f.Name.ToLower().Contains(srchTrm)
-                                || f.Website.ToLower().Contains(srchTrm) || f.Phone.Contains(srchTrm));
-    return PartialView("/Views/Partials/_UserTable.cshtml",vm);
-}
+    public async Task<IActionResult> Filter(){
+        var model=await getNewOrCachedData();
+        return PartialView("/Views/Partials/_UserTable.cshtml",model);
+    }
 ```
 
 - call this controller method using htmx
