@@ -25,7 +25,7 @@ public class HomeController : Controller
         var model=await getNewOrCachedData();
         return PartialView("/Views/Partials/_UserTable.cshtml",model);
     }
-    private async Task<IEnumerable<UserViewModel>?> getNewOrCachedData(){
+    private async Task<IEnumerable<UserViewModel>> getNewOrCachedData(){
         IEnumerable<UserViewModel> vm=new List<UserViewModel>();   
         var srchTrm="";
         if(Request.QueryString.Value!=null && Request.QueryString.Value.ToLower().Contains("search"))
@@ -36,7 +36,7 @@ public class HomeController : Controller
         }   
         catch(Exception e){
             _logger.LogError("Error calling json placeholder api",e);
-            return null;
+            return Array.Empty<UserViewModel>();
         }
         
         if(_vmCache is not null)
