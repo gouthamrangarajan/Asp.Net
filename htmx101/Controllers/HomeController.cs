@@ -17,17 +17,17 @@ public class HomeController : Controller
         _logger = logger;
     }
     public async Task<IActionResult> Index(){        
-        var model=await getNewOrCachedData();
-        return View(model);
+        (var srchTrm,var users)=await getNewOrCachedData();
+        return View(new FilterViewModel{Users=users,SearchTxt=srchTrm});
     }
     
     public async Task<IActionResult> Filter(){         
-        var model=await getNewOrCachedData();
-        return PartialView("/Views/Partials/_UserTable.cshtml",model);
+        (var srchTrm,var users)=await getNewOrCachedData();
+        return PartialView("/Views/Partials/_UserTable.cshtml",users);
     }
-    private async Task<IEnumerable<UserViewModel>> getNewOrCachedData(){
-        IEnumerable<UserViewModel> vm=Array.Empty<UserViewModel>();   
-        var srchTrm="";
+    private async Task<(string srchTrm,IEnumerable<UserViewModel> users)> getNewOrCachedData(){
+        (string srchTrm,IEnumerable<UserViewModel> users)=("",Array.Empty<UserViewModel>());
+                 
         if(Request.QueryString.Value!=null && Request.QueryString.Value.ToLower().Contains("search"))
             srchTrm= Request.Query.First(f=>f.Key=="search").Value.ToString().ToLower();
 
@@ -35,13 +35,12 @@ public class HomeController : Controller
             _vmCache??=await httpClient.GetFromJsonAsync<IEnumerable<UserViewModel>>("https://jsonplaceholder.typicode.com/users");
         }   
         catch(Exception e){
-            _logger.LogError("Error calling json placeholder api",e);
-            return Array.Empty<UserViewModel>();
+            _logger.LogError("Error calling json placeholder api",e);           
         }
         
         if(_vmCache is not null)
-            vm=_vmCache.Where(f=>f.UserName.ToLower().Contains(srchTrm) || f.Name.ToLower().Contains(srchTrm)
+            users=_vmCache.Where(f=>f.UserName.ToLower().Contains(srchTrm) || f.Name.ToLower().Contains(srchTrm)
                                  || f.Website.ToLower().Contains(srchTrm) || f.Phone.Contains(srchTrm));
-        return vm;
+        return (srchTrm,users);
     }
 }

@@ -8,14 +8,14 @@
 
 ```C#
 public async Task<IActionResult> Index(){
-        var model=await getNewOrCachedData();
-        return View(model);
-    }
+    (var srchTrm,var users)=await getNewOrCachedData();
+    return View(new FilterViewModel{Users=users,SearchTxt=srchTrm});
+}
 
-    public async Task<IActionResult> Filter(){
-        var model=await getNewOrCachedData();
-        return PartialView("/Views/Partials/_UserTable.cshtml",model);
-    }
+public async Task<IActionResult> Filter(){
+    (var srchTrm,var users)=await getNewOrCachedData();
+    return PartialView("/Views/Partials/_UserTable.cshtml",users);
+}
 ```
 
 - call this controller method using htmx
@@ -31,6 +31,7 @@ public async Task<IActionResult> Index(){
     name="search"
     class="appearance-none outline-none w-full py-2 px-4 rounded-sm border border-indigo-600 focus:border-2"
     placeholder="Type & Press Enter to Search..."
+    value="@Model.SearchTxt"
   />
   <div class="relative w-full htmx-indicator">
     <div class="absolute top-10 left-0 w-full flex items-center justify-center">
@@ -39,7 +40,10 @@ public async Task<IActionResult> Index(){
   </div>
 </form>
 <div class="w-full h-120 relative" id="users__table">
-  <partial name="/Views/Partials/_UserTable.cshtml" model="@Model"></partial>
+  <partial
+    name="/Views/Partials/_UserTable.cshtml"
+    model="@Model.Users"
+  ></partial>
 </div>
 ```
 
@@ -101,6 +105,7 @@ public async Task<IActionResult> Index(){
   </tbody>
 </table>
 ```
+
 - [Demo](https://htmx101.azurewebsites.net/)
 - screenshot (notice the focus in input is never lost during search)
 
