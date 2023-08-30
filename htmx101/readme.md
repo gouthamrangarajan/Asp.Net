@@ -4,28 +4,28 @@
 
 ##### ASP .Net code
 
-- a simple controller method to send partial view (can be view also)
+- add [htmx](https://www.nuget.org/packages/htmx) nuget package
+- a simple controller method to send partial view (can be view also) if request is from htmx
 
 ```C#
-public async Task<IActionResult> Index(){
-    (var srchTrm,var users)=await getNewOrCachedData();
-    return View(new FilterViewModel{Users=users,SearchTxt=srchTrm});
-}
-
-public async Task<IActionResult> Filter(){
-    (var srchTrm,var users)=await getNewOrCachedData();
-    return PartialView("/Views/Partials/_UserTable.cshtml",users);
-}
+    public async Task<IActionResult> Index(){
+        (var srchTrm,var users)=await getNewOrCachedData();
+        if(Request.IsHtmx())
+            return PartialView("/Views/Partials/_UserTable.cshtml",users);
+        else
+            return View(new FilterViewModel{Users=users,SearchTxt=srchTrm});
+    }
 ```
 
 - call this controller method using htmx
 
 ```html
 <form
-  hx-get="/home/filter"
+  hx-get="/"
   hx-target="#users__table"
   hx-swap="innerHTML"
   class="w-11/12"
+  hx-push-url="true"
 >
   <input
     name="search"

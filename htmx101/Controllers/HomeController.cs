@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using htmx101.Models;
 using htmx101.Models.JsonPlaceholder;
+using Htmx;
 
 namespace htmx101.Controllers;
 
@@ -18,13 +19,12 @@ public class HomeController : Controller
     }
     public async Task<IActionResult> Index(){        
         (var srchTrm,var users)=await getNewOrCachedData();
-        return View(new FilterViewModel{Users=users,SearchTxt=srchTrm});
+        if(Request.IsHtmx())
+            return PartialView("/Views/Partials/_UserTable.cshtml",users);
+        else
+            return View(new FilterViewModel{Users=users,SearchTxt=srchTrm});
     }
-    
-    public async Task<IActionResult> Filter(){         
-        (var srchTrm,var users)=await getNewOrCachedData();
-        return PartialView("/Views/Partials/_UserTable.cshtml",users);
-    }
+       
     private async Task<(string srchTrm,IEnumerable<UserViewModel> users)> getNewOrCachedData(){
         (string srchTrm,IEnumerable<UserViewModel> users)=("",Array.Empty<UserViewModel>());
                  
